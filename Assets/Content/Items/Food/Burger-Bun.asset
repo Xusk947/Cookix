@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b99656786954f48b877c7c020cfac6, type: 3}
+  m_Name: Burger-Bun
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 2209442117228517125, guid: 75752cbb743062248a5178725c4bc3f1, type: 3}
+  Icon: {fileID: 21300000, guid: c9fdd7c97e4ab2e46805ed8833edac0c, type: 3}
+  Name: 
+  canBeSliced: 0
+  slicedPrefab: {fileID: 0}
+  canBeFried: 0
+  friedPrefab: {fileID: 0}
+  combineWith:
+  - Input: {fileID: 11400000, guid: 146c675d2fef87940a2747a038a81987, type: 2}
+    Output: {fileID: 11400000, guid: 146c675d2fef87940a2747a038a81987, type: 2}
+  - Input: {fileID: 11400000, guid: 3ef1eade8f80a78448807830e9636642, type: 2}
+    Output: {fileID: 11400000, guid: 3ef1eade8f80a78448807830e9636642, type: 2}
+  - Input: {fileID: 11400000, guid: 250f78c9c7922c041b9dfc6f17c90c7a, type: 2}
+    Output: {fileID: 11400000, guid: 250f78c9c7922c041b9dfc6f17c90c7a, type: 2}
+  TopBunPrefab: {fileID: 4502758337983046015, guid: a253425bb9608e649a838952a51eb32f, type: 3}
+  BottomBunPrefab: {fileID: 2227291342467085877, guid: 19c2c2f444d60264c827503201f66146, type: 3}
