@@ -7,7 +7,14 @@ public class TrashCan : Block
     public override void Interact(PlayerController player)
     {
         if (player.CurrentItem == null) return;
-        if (player.CurrentItem is not FoodEntity) return;
-        player.RemoveItem();
+        switch(player.CurrentItem)
+        {
+            case FoodEntity:
+                player.RemoveItem();
+                break;
+            case KitchenItemEntity:
+                (player.CurrentItem as KitchenItemEntity).RemoveItems();
+                break;
+        }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Food Item", menuName = "Cookix/Items/Food Item")]
@@ -18,9 +15,16 @@ public class FoodItem : Item
     public bool canBeFried;
     [ConditionalField("canBeFried", true)]
     public FoodItem friedPrefab;
-    // Can Be boiled
+    // Boiling
     [Space(10)]
     public bool canBeBoiled;
+    [ConditionalField("canBeBoiled", true)]
+    public FoodItem boiledPrefab;
+    // Mixing
+    [Space(10)]
+    public bool canBeMixed;
+    [ConditionalField("canBeMixed", true)]
+    public FoodItem mixedPrefab;
     // Combining
     [Space(10), SerializeField]
     private List<CombineData> combineWith = new List<CombineData>();
@@ -35,7 +39,6 @@ public class FoodItem : Item
             GameObject icon = GenerateIcon();
             icon.transform.SetParent(foodEntity.transform);
             icon.transform.localPosition = new Vector3(0, 0.5f, 0);
-            UnityEngine.Debug.Log(icon);
         }
 
         return foodEntity;

@@ -14,10 +14,12 @@ public class FoodSource : Block
             player.CurrentItem = sourceItem.Create();
         } else if (player.CurrentItem != null)
         {
-            print(player.CurrentItem + " : " + player.CurrentItem.item + " : " + sourceItem);
             if (player.CurrentItem.item == sourceItem)
             {
                 player.RemoveItem();
+            } else if (player.CurrentItem is KitchenItemEntity)
+            {
+                (player.CurrentItem as KitchenItemEntity).TryToAddItem(sourceItem.Create());
             }
             return;
         }

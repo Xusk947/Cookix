@@ -31,26 +31,75 @@ public class Table : Block
             if (player.CurrentItem != null)
             {
                 // Check for players & table items if it's a FoodEntity then we make entity.item, Item to FoodItem and get output from CanCombine as combinedItem
-                if (player.CurrentItem is not FoodEntity) return;
-                if (itemEntity is not FoodEntity) return;
-                // Convert ItemEntity to FoodItem
-                FoodEntity foodEntity = itemEntity as FoodEntity;
-                FoodEntity playerItem = player.CurrentItem as FoodEntity;
-                FoodEntity combinedFoodItem;
-
-                // Check for a Combinations
-                if (foodEntity.CanCombine(playerItem, out combinedFoodItem))
+                if (player.CurrentItem is FoodEntity && itemEntity is FoodEntity)
                 {
-                    // Create new Item and put it on the Table
-                    Item = combinedFoodItem;
+                    InteractFoodEntities(player.CurrentItem as FoodEntity);
+                }
+                // Check if player or a table has a KitchenItemEntity and table/player has a FoodItem try to put this item on the KitchenItemEntity
+                else if ((player.CurrentItem is KitchenItemEntity && itemEntity is FoodEntity)
+                    || (player.CurrentItem is FoodEntity && itemEntity is KitchenItemEntity)) // Try to add ingredient from table to Player Kitchen Entity Item
+                {
+                    InteractKitchenItemEntityWithFoodEntity(player);
                 }
             }
+            // Else just give player item if table has some of it
             else if (player.CurrentItem == null)
             {
                 player.CurrentItem = itemEntity;
                 itemEntity = null;
             }
         }
+    }
+
+    private void InteractFoodEntities(FoodEntity playerItem)
+    {
+        // Convert ItemEntity to FoodItem
+        FoodEntity foodEntity = itemEntity as FoodEntity;
+        FoodEntity combinedFoodItem;
+
+        // Check for a Combinations
+        if (foodEntity.CanCombine(playerItem, out combinedFoodItem))
+        {
+            // Create new Item and put it on the Table
+            Item = combinedFoodItem;
+        }
+    }
+
+    private void InteractKitchenItemEntityWithFoodEntity(PlayerController player)
+    {
+        ItemEntity playerItem = player.CurrentItem;
+        FoodEntity foodEntity;
+        KitchenItemEntity kitchenItemEntity;
+        // Set up base variables
+        if (playerItem is KitchenItemEntity)
+        {
+            kitchenItemEntity = playerItem as KitchenItemEntity;
+            foodEntity = itemEntity as FoodEntity;
+        }
+        else
+        {
+            kitchenItemEntity = itemEntity as KitchenItemEntity;
+            foodEntity = playerItem as FoodEntity;
+        }
+        // We try to add item to Kitchen Item if that's right return
+        if (kitchenItemEntity.TryToAddItem(foodEntity)) return;
+        // Try to get cooked item from Kitchen Item and if it has it then continue
+        FoodEntity cookedEntity = kitchenItemEntity.GetCookedItem();
+        if (cookedEntity == null) return;
+        // If Cooked item can combine with another item on table/player do this
+        FoodEntity combinedFoodItem;
+        if (!foodEntity.CanCombine(cookedEntity, out combinedFoodItem)) return;
+        // Add this check because Kitchen item can be placed on the table then when items combining new item replace item on the table
+        // so Kitchen Item exist only on the table and game doesn't see this item again
+        if (playerItem is KitchenItemEntity)
+        {
+            Item = combinedFoodItem;
+        } else
+        {
+            player.CurrentItem = combinedFoodItem;
+        }
+        // Clear cooked item on Kitchen Item
+        kitchenItemEntity.RemoveItems();
     }
 
     protected virtual void PlaceItem(ItemEntity item)

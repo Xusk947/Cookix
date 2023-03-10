@@ -7,7 +7,7 @@ public class Block : MonoBehaviour
     [HideInInspector] public Renderer blockRenderer;
     [HideInInspector] public Color baseColor;
     [HideInInspector] public Color smoothColor;
-    private void Start()
+    protected void Start()
     {
         if (transform.childCount > 0)
         {
