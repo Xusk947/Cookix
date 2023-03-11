@@ -34,11 +34,15 @@ public class FoodItem : Item
         FoodEntity foodEntity = Instantiate(Prefab).AddComponent<FoodEntity>();
         foodEntity.item = this;
 
+
+        Debug.Log(name + " : " + Icon);
         if (Icon != null)
         {
             GameObject icon = GenerateIcon();
             icon.transform.SetParent(foodEntity.transform);
-            icon.transform.localPosition = new Vector3(0, 0.5f, 0);
+            float scaleFactor = 1 / foodEntity.transform.localScale.x;
+            icon.transform.localPosition = new Vector3(0, 0.5f, 0) * scaleFactor;
+            icon.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
         }
 
         return foodEntity;

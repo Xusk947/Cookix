@@ -19,6 +19,10 @@ MonoBehaviour:
   slicedPrefab: {fileID: 0}
   canBeFried: 0
   friedPrefab: {fileID: 0}
+  canBeBoiled: 0
+  boiledPrefab: {fileID: 0}
+  canBeMixed: 0
+  mixedPrefab: {fileID: 0}
   combineWith:
   - Input: {fileID: 11400000, guid: 146c675d2fef87940a2747a038a81987, type: 2}
     Output: {fileID: 11400000, guid: 146c675d2fef87940a2747a038a81987, type: 2}
@@ -26,5 +30,5 @@ MonoBehaviour:
     Output: {fileID: 11400000, guid: 3ef1eade8f80a78448807830e9636642, type: 2}
   - Input: {fileID: 11400000, guid: 250f78c9c7922c041b9dfc6f17c90c7a, type: 2}
     Output: {fileID: 11400000, guid: 250f78c9c7922c041b9dfc6f17c90c7a, type: 2}
-  TopBunPrefab: {fileID: 4502758337983046015, guid: a253425bb9608e649a838952a51eb32f, type: 3}
-  BottomBunPrefab: {fileID: 2227291342467085877, guid: 19c2c2f444d60264c827503201f66146, type: 3}
+  TopBunPrefab: {fileID: 6263933248890200659, guid: a253425bb9608e649a838952a51eb32f, type: 3}
+  BottomBunPrefab: {fileID: 925611266649150540, guid: 19c2c2f444d60264c827503201f66146, type: 3}

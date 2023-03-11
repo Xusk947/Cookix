@@ -20,7 +20,7 @@ public class BurgerItem : FoodItem
         GameObject bottomBun = Instantiate(BottomBunPrefab);
         bottomBun.transform.SetParent(newFoodEntity.transform);
         // Added added items to new Entity
-        float lastHeight = bottomBun.GetComponent<MeshRenderer>().bounds.max.y;
+        float lastHeight = bottomBun.transform.GetChild(0).GetComponent<MeshRenderer>().bounds.max.y;
         foreach(CombineData combineDataInBase in newFoodEntity.addedItems)
         {
             GameObject ingredient = Instantiate(combineDataInBase.Output.Prefab);
@@ -32,7 +32,6 @@ public class BurgerItem : FoodItem
             {
                 meshRenderer = ingredient.GetComponentInChildren<MeshRenderer>();
             }
-            Debug.Log(ingredient.transform.localPosition);
             lastHeight = meshRenderer.bounds.max.y;
         }
         // Finish method with adding Top Bun for new Food Entity

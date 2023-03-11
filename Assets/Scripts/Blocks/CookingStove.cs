@@ -26,7 +26,7 @@ public class CookingStove : Table
         if (kitchenItemEntity.CanCook())
         {
             hud.SetActive(true);
-            kitchenItemEntity.cookingProgress += Time.deltaTime / 1f;
+            kitchenItemEntity.cookingProgress += Time.deltaTime / 10f;
             progressBar.fillAmount = kitchenItemEntity.cookingProgress;
             if (kitchenItemEntity.cookingProgress > 1.0f)
             {

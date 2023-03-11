@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bed386447a3bf9419f60ac44bcc5d70, type: 3}
   m_Name: Raw-Cutlet
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 5109256626844235281, guid: 52c4b58817dbdec4db359f07ff5bc6d7, type: 3}
-  Icon: {fileID: 0}
-  Name: 
+  Prefab: {fileID: 8591551567291898770, guid: 8eab55c0509d3f74da710e4f32b3ebec, type: 3}
+  Icon: {fileID: 21300000, guid: b07044cb77b32a34f9e5a1acae014493, type: 3}
+  Name: Raw Cutlet
   canBeSliced: 0
   slicedPrefab: {fileID: 0}
-  canBeFried: 0
+  canBeFried: 1
   friedPrefab: {fileID: 11400000, guid: 3ef1eade8f80a78448807830e9636642, type: 2}
   canBeBoiled: 0
   boiledPrefab: {fileID: 0}

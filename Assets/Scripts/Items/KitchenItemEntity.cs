@@ -20,7 +20,6 @@ public class KitchenItemEntity : ItemEntity
     }
     public bool TryToAddItem(FoodEntity item)
     {
-        Debug.Log(CanAddItem(item));
         if (CanAddItem(item))
         {
             AddItem(item);
@@ -63,7 +62,6 @@ public class KitchenItemEntity : ItemEntity
     }
     public void RemoveItems()
     {
-        Debug.Log(itemsInside.Count);
         foreach (FoodEntity item in itemsInside) 
         {
             Destroy(item.gameObject);
