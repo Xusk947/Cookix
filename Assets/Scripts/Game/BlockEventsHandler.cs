@@ -9,6 +9,7 @@ public class BlockEventsHandler : MonoBehaviour
         Events.KitchenBlockInteract += OnKitchenBlockInteract;
         Events.KitchenBlockSelected += OnKitchenBlockSelected;
         Events.KitchenBlockUnselected += OnKitchenBlockUnselected;
+        Events.KitchenBlockSecondInteract += OnKitchenBlockSecondInteract;
     }
 
     private void OnKitchenBlockUnselected(object sender, BlockArgs e)
@@ -24,5 +25,10 @@ public class BlockEventsHandler : MonoBehaviour
     private void OnKitchenBlockInteract(object sender, BlockArgs e)
     {
         e.Block.Interact(e.PlayerController);
+    }
+
+    private void OnKitchenBlockSecondInteract(object sender, BlockArgs e)
+    {
+        e.Block.SecondInteract(e.PlayerController);
     }
 }

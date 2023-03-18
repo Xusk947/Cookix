@@ -6,9 +6,13 @@ public class Content : MonoBehaviour
 {
     // GUI for FoodItems
     public static Content Instance;
+    [HideInInspector]
     public GameObject FoodItemUI;
+    [HideInInspector]
     public GameObject FoodItemGridUI;
+    [HideInInspector]
     public GameObject Icon;
+    [HideInInspector]
     public GameObject CookProgressBar;
     private void Awake()
     {

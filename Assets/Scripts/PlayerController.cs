@@ -45,10 +45,15 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
+        // Get base components
         _rigidBody = GetComponent<Rigidbody>();
         _characterController = GetComponent<CharacterController>();
+        // Connect Input
         _gameInput.OnInteractAction += PlayerInteract;
+        _gameInput.OnSecondInteractAction += PlayerSecondInteract;
+        // Create a ray for cheking blocks forward the Player
         _ray = new Ray();
+        // Find another Children
         _eyes = transform.Find("Eyes").gameObject;
         ItemHolder = transform.Find("ItemHolder");
     }
@@ -58,6 +63,14 @@ public class PlayerController : MonoBehaviour
         if (_selectedBlock != null)
         {
             Events.OnKitchenBlockInteract(new BlockArgs(this, _selectedBlock));
+        }
+    }
+
+    private void PlayerSecondInteract(object sender, System.EventArgs e)
+    {
+        if (_selectedBlock != null)
+        {
+            Events.OnKitchenBlockSecondInteract(new BlockArgs(this, _selectedBlock));
         }
     }
 

@@ -4,40 +4,40 @@ using UnityEngine;
 
 public class Table : Block
 {
-    protected ItemEntity itemEntity;
+    protected ItemEntity _itemEntity;
     public ItemEntity Item
     {
         get 
         { 
-            return itemEntity; 
+            return _itemEntity; 
         }
         set 
         { 
-            itemEntity = value;
+            _itemEntity = value;
             if (value == null) return;
-            PlaceItem(itemEntity);
+            PlaceItem(_itemEntity);
         }
     }
     public override void Interact(PlayerController player)
     {
-        if (itemEntity == null && player.CurrentItem != null)
+        if (_itemEntity == null && player.CurrentItem != null)
         {
             Item = player.CurrentItem;
             player.CurrentItem = null;
             return;
         }
-        else if (itemEntity != null) {
+        else if (_itemEntity != null) {
             // If player has an item we try to combine it
             if (player.CurrentItem != null)
             {
                 // Check for players & table items if it's a FoodEntity then we make entity.item, Item to FoodItem and get output from CanCombine as combinedItem
-                if (player.CurrentItem is FoodEntity && itemEntity is FoodEntity)
+                if (player.CurrentItem is FoodEntity && _itemEntity is FoodEntity)
                 {
                     InteractFoodEntities(player.CurrentItem as FoodEntity);
                 }
                 // Check if player or a table has a KitchenItemEntity and table/player has a FoodItem try to put this item on the KitchenItemEntity
-                else if ((player.CurrentItem is KitchenItemEntity && itemEntity is FoodEntity)
-                    || (player.CurrentItem is FoodEntity && itemEntity is KitchenItemEntity)) // Try to add ingredient from table to Player Kitchen Entity Item
+                else if ((player.CurrentItem is KitchenItemEntity && _itemEntity is FoodEntity)
+                    || (player.CurrentItem is FoodEntity && _itemEntity is KitchenItemEntity)) // Try to add ingredient from table to Player Kitchen Entity Item
                 {
                     InteractKitchenItemEntityWithFoodEntity(player);
                 }
@@ -45,8 +45,8 @@ public class Table : Block
             // Else just give player item if table has some of it
             else if (player.CurrentItem == null)
             {
-                player.CurrentItem = itemEntity;
-                itemEntity = null;
+                player.CurrentItem = _itemEntity;
+                _itemEntity = null;
             }
         }
     }
@@ -54,7 +54,7 @@ public class Table : Block
     private void InteractFoodEntities(FoodEntity playerItem)
     {
         // Convert ItemEntity to FoodItem
-        FoodEntity foodEntity = itemEntity as FoodEntity;
+        FoodEntity foodEntity = _itemEntity as FoodEntity;
         FoodEntity combinedFoodItem;
 
         // Check for a Combinations
@@ -74,11 +74,11 @@ public class Table : Block
         if (playerItem is KitchenItemEntity)
         {
             kitchenItemEntity = playerItem as KitchenItemEntity;
-            foodEntity = itemEntity as FoodEntity;
+            foodEntity = _itemEntity as FoodEntity;
         }
         else
         {
-            kitchenItemEntity = itemEntity as KitchenItemEntity;
+            kitchenItemEntity = _itemEntity as KitchenItemEntity;
             foodEntity = playerItem as FoodEntity;
         }
         // We try to add item to Kitchen Item if that's right return

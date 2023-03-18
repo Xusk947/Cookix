@@ -20,9 +20,9 @@ public class CookingStove : Table
     void Update()
     {
         hud.SetActive(false);
-        if (itemEntity == null) return;
-        if (itemEntity is not KitchenItemEntity) return;
-        KitchenItemEntity kitchenItemEntity = itemEntity as KitchenItemEntity;
+        if (_itemEntity == null) return;
+        if (_itemEntity is not KitchenItemEntity) return;
+        KitchenItemEntity kitchenItemEntity = _itemEntity as KitchenItemEntity;
         if (kitchenItemEntity.CanCook())
         {
             hud.SetActive(true);
@@ -44,7 +44,7 @@ public class CookingStove : Table
     {
         hud = Instantiate(Content.Instance.CookProgressBar);
         hud.transform.SetParent(transform);
-        hud.transform.localPosition = new Vector3(0, 0, 0.02f);
+        hud.transform.localPosition = new Vector3(0, 1f, 0.02f);
         progressBar = hud.transform.GetChild(1).GetComponent<Image>();
         progressBar.fillAmount = 0;
         hud.SetActive(false);

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Cheese
   m_EditorClassIdentifier: 
   Prefab: {fileID: 3151611264668341248, guid: 26d3724c3c4f4ae4d93cadd15d8f8a4f, type: 3}
-  Icon: {fileID: 21300000, guid: 44a7bb4c6d162d44e9e3ff87d5bbf581, type: 3}
+  Icon: {fileID: 21300000, guid: cbd274a6456c5674d91c27d4ef911e12, type: 3}
   Name: Sliced Tomato
-  canBeSliced: 0
-  slicedPrefab: {fileID: 0}
+  canBeSliced: 1
+  slicedPrefab: {fileID: 11400000, guid: 250f78c9c7922c041b9dfc6f17c90c7a, type: 2}
   canBeFried: 0
   friedPrefab: {fileID: 0}
   canBeBoiled: 0

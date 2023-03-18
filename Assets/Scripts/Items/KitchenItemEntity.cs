@@ -30,11 +30,12 @@ public class KitchenItemEntity : ItemEntity
     protected void AddItem(FoodEntity item)
     {
         item.transform.SetParent(transform);
-
+        // Set transform to 0 and scale to 0.8
         FoodEntity newFoodEntity = item.foodItem.Create();
         newFoodEntity.transform.SetParent(transform);
         newFoodEntity.transform.localPosition = new Vector3(0, 0, 0);
         newFoodEntity.transform.localScale = newFoodEntity.transform.localScale * 0.8f;
+        // Then add item from Holder to it self, and destroy this item in Holder
         itemsInside.Add(newFoodEntity);
         Destroy(item.gameObject);
 
