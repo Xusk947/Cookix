@@ -8,22 +8,27 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Bun
-    second: {fileID: 2100000, guid: e765c23672af64c458ecfe3cb1c34752, type: 2}
+    second: {fileID: 2100000, guid: a09c2146793bcef4c8b9b82f89ba83ff, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Cheese
-    second: {fileID: 2100000, guid: 93586210603b3024892a9ab08665b058, type: 2}
+    second: {fileID: 2100000, guid: c26f79beea388a34685fd103e22119e1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Cutlet
-    second: {fileID: 2100000, guid: 8382a037f34766c4095a4360f9680eee, type: 2}
+    second: {fileID: 2100000, guid: 686a41d2c9a2a7d4eba956dc3d138faa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Salad
+    second: {fileID: 2100000, guid: 6a9b8bfc7b29b7b46962359ff6d640d2, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Tomato
-    second: {fileID: 2100000, guid: ee26e35b41b4e63438ed24d1a0e9ed67, type: 2}
+    second: {fileID: 2100000, guid: 098a71abc4945744b8dc49eff1ed9d82, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -67,7 +72,7 @@ ModelImporter:
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
@@ -90,7 +95,7 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
-    tangentImportMode: 1
+    tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1

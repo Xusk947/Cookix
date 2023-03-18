@@ -4,59 +4,60 @@
 public class PlayerController : MonoBehaviour
 {
     // Base variables
-    [SerializeField] private GameInput gameInput;
-    private Rigidbody rb;
-
+    [SerializeField] private GameInput _gameInput;
+    private Rigidbody _rigidBody;
+    private CharacterController _characterController;
     // Raycast
     [Space(2)]
     [SerializeField]
-    private float raycastDistance = 4f;
-    private Ray ray;
-    private GameObject eyes;
-    private int collisionLayers = (1 << 8);
+    private float _raycastDistance = 4f;
+    private Ray _ray;
+    private GameObject _eyes;
+    private int _collisionLayers = (1 << 8);
 
     // Item
-    public Transform itemHolder;
-    private ItemEntity currentItem { get; set; } 
+    public Transform ItemHolder;
+    private ItemEntity _currentItem { get; set; } 
     // Block Interaction
-    private Block selectedBlock;
+    private Block _selectedBlock;
 
     public ItemEntity CurrentItem
     { 
         get 
         { 
-            return currentItem; 
+            return _currentItem; 
         } 
         set 
         {
-            currentItem = value;
-            if (currentItem == null) return;
-            currentItem.transform.parent = itemHolder.transform;
-            currentItem.transform.position = itemHolder.transform.position;
-            currentItem = value;
+            _currentItem = value;
+            if (_currentItem == null) return;
+            _currentItem.transform.parent = ItemHolder.transform;
+            _currentItem.transform.position = ItemHolder.transform.position;
+            _currentItem = value;
         } 
     }
     public void RemoveItem()
     {
-        if (currentItem != null)
+        if (_currentItem != null)
         {
-            Destroy(currentItem.gameObject);
+            Destroy(_currentItem.gameObject);
         }
     }
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        gameInput.OnInteractAction += PlayerInteract;
-        ray = new Ray();
-        eyes = transform.Find("Eyes").gameObject;
-        itemHolder = transform.Find("ItemHolder");
+        _rigidBody = GetComponent<Rigidbody>();
+        _characterController = GetComponent<CharacterController>();
+        _gameInput.OnInteractAction += PlayerInteract;
+        _ray = new Ray();
+        _eyes = transform.Find("Eyes").gameObject;
+        ItemHolder = transform.Find("ItemHolder");
     }
 
     private void PlayerInteract(object sender, System.EventArgs e)
     {
-        if (selectedBlock != null)
+        if (_selectedBlock != null)
         {
-            Events.OnKitchenBlockInteract(new BlockArgs(this, selectedBlock));
+            Events.OnKitchenBlockInteract(new BlockArgs(this, _selectedBlock));
         }
     }
 
@@ -73,46 +74,52 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateInteraction()
     {
-        ray = new Ray(eyes.transform.position, Vector3.down);
+        _ray = new Ray(_eyes.transform.position, Vector3.down);
         RaycastHit raycastHit;
-        if (Physics.Raycast(ray, out raycastHit, raycastDistance, collisionLayers))
+        if (Physics.Raycast(_ray, out raycastHit, _raycastDistance, _collisionLayers))
         {
             Block rayBlock;
             if (raycastHit.transform.parent != null)
             {
-                rayBlock = raycastHit.transform.parent.gameObject.GetComponent<Block>();
+                if (raycastHit.transform.parent.name == "Blocks")
+                {
+                    rayBlock = raycastHit.transform.gameObject.GetComponent<Block>();
+                } else
+                {
+                    rayBlock = raycastHit.transform.parent.gameObject.GetComponent<Block>();
+                }
             }
             else
             {
                 rayBlock = raycastHit.transform.gameObject.GetComponent<Block>();
             }
             // If current block is not the same, remove focus from this block and set focus to another
-            if (selectedBlock == null)
+            if (_selectedBlock == null)
             {
-                selectedBlock = rayBlock;
+                _selectedBlock = rayBlock;
                 Events.OnKitchenBlockSelected(new BlockArgs(this, rayBlock));
             }
-            else if (rayBlock != selectedBlock) 
+            else if (rayBlock != _selectedBlock) 
             {
-                Events.OnKitchenBlockUnselected(new BlockArgs(this, selectedBlock));
+                Events.OnKitchenBlockUnselected(new BlockArgs(this, _selectedBlock));
                 Events.OnKitchenBlockSelected(new BlockArgs(this, rayBlock));
-                selectedBlock = rayBlock;
+                _selectedBlock = rayBlock;
             }
-        } else if (selectedBlock != null)
+        } else if (_selectedBlock != null)
         {
-            Events.OnKitchenBlockUnselected(new BlockArgs(this, selectedBlock));
-            selectedBlock = null;
+            Events.OnKitchenBlockUnselected(new BlockArgs(this, _selectedBlock));
+            _selectedBlock = null;
         }
     }
 
     private void UpdateMovement()
     {
-        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+        Vector2 inputVector = _gameInput.GetMovementVectorNormalized();
         Vector3 direction = new Vector3(inputVector.x, 0, inputVector.y);
 
         Vector3 position = transform.position + direction * Time.deltaTime * 5f;
-        rb.MovePosition(position);
         transform.forward = Vector3.Slerp(transform.forward, direction, Time.deltaTime * 7.5f);
+        _characterController.SimpleMove(direction * 5f);
     }
 
     public void OnDrawGizmos()

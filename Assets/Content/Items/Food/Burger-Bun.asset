@@ -30,5 +30,7 @@ MonoBehaviour:
     Output: {fileID: 11400000, guid: 3ef1eade8f80a78448807830e9636642, type: 2}
   - Input: {fileID: 11400000, guid: 250f78c9c7922c041b9dfc6f17c90c7a, type: 2}
     Output: {fileID: 11400000, guid: 250f78c9c7922c041b9dfc6f17c90c7a, type: 2}
+  - Input: {fileID: 11400000, guid: cc6f3de2b3b7e7b4abce1db5c80fd688, type: 2}
+    Output: {fileID: 11400000, guid: 45239f8952fdbc946a407d55ec6605d6, type: 2}
   TopBunPrefab: {fileID: 6263933248890200659, guid: a253425bb9608e649a838952a51eb32f, type: 3}
   BottomBunPrefab: {fileID: 925611266649150540, guid: 19c2c2f444d60264c827503201f66146, type: 3}
