@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b01693cf4db98341a547be2a3c2b20e, type: 3}
   m_Name: Pan
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 6117332591620330797, guid: d791cae11cea44d4c955298622e6cffe, type: 3}
+  Prefab: {fileID: 6776527584346138428, guid: d791cae11cea44d4c955298622e6cffe, type: 3}
   Icon: {fileID: 0}
   Name: Pan
-  maxHoldItems: 3
-  useFor: 2
+  maxHoldItems: 1
+  useFor: 0

@@ -19,7 +19,11 @@ public class FoodSource : Block
                 player.RemoveItem();
             } else if (player.CurrentItem is KitchenItemEntity)
             {
-                (player.CurrentItem as KitchenItemEntity).TryToAddItem(sourceItem.Create());
+                FoodEntity newItem = sourceItem.Create();
+                if (!(player.CurrentItem as KitchenItemEntity).TryToAddItem(newItem))
+                {
+                    Destroy(newItem);
+                }
             }
             return;
         }

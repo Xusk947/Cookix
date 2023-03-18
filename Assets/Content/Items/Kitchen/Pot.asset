@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b01693cf4db98341a547be2a3c2b20e, type: 3}
   m_Name: Pot
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 7277027298926163087, guid: d95432b5b7d4054489dacdb05c6d92ed, type: 3}
+  Prefab: {fileID: 7339640760930895893, guid: d95432b5b7d4054489dacdb05c6d92ed, type: 3}
   Icon: {fileID: 0}
   Name: Pot
-  maxHoldItems: 1
-  useFor: 0
-  canHold:
-  - {fileID: 11400000, guid: 3ef1eade8f80a78448807830e9636642, type: 2}
+  maxHoldItems: 3
+  useFor: 2
