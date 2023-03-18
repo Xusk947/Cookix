@@ -34,8 +34,6 @@ public class FoodItem : Item
         FoodEntity foodEntity = Instantiate(Prefab).AddComponent<FoodEntity>();
         foodEntity.item = this;
 
-
-        Debug.Log(name + " : " + Icon);
         if (Icon != null)
         {
             GameObject icon = GenerateIcon();

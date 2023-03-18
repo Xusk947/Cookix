@@ -19,10 +19,13 @@ public class FoodSource : Block
                 player.RemoveItem();
             } else if (player.CurrentItem is KitchenItemEntity)
             {
+                // Create Food Item and cast player current item to Kitchen Item Entity
+                KitchenItemEntity playerKitchenItemEntity = (player.CurrentItem as KitchenItemEntity);
                 FoodEntity newItem = sourceItem.Create();
-                if (!(player.CurrentItem as KitchenItemEntity).TryToAddItem(newItem))
+                // If kitchen Item Entity can't hold source Item then we destroy it, else it placing on the Kitchen Item Entity
+                if (!playerKitchenItemEntity.TryToAddItem(newItem))
                 {
-                    Destroy(newItem);
+                    Destroy(newItem.gameObject);
                 }
             }
             return;
