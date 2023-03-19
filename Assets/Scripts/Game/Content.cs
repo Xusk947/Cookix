@@ -14,12 +14,15 @@ public class Content : MonoBehaviour
     public GameObject Icon;
     [HideInInspector]
     public GameObject CookProgressBar;
+    [HideInInspector]
+    public GameObject ScreenshotBackground;
     private void Awake()
     {
         FoodItemUI = Resources.Load<GameObject>("Models/Prefabs/UI/FoodItemUI");
         FoodItemGridUI = Resources.Load<GameObject>("Models/Prefabs/UI/FoodItemGridUI");
         Icon = Resources.Load<GameObject>("Models/Prefabs/UI/IconImage");
         CookProgressBar = Resources.Load<GameObject>("Models/Prefabs/UI/CookProgressBar");
+        ScreenshotBackground = Resources.Load<GameObject>("Models/Prefabs/UI/Background");
 
         Instance = this;
     }
