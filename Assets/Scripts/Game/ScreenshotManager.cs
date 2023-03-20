@@ -3,22 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FoodScreenShotManager : MonoBehaviour
+public class ScreenshotManager : MonoBehaviour
 {
+    public static ScreenshotManager Instance { get; private set; }
     private Camera _screenshotCamera;
     private GameObject _itemHolder;
 
     private void Start()
     {
+        Instance = this;
         GameObject screenshotGameObject = new GameObject();
         screenshotGameObject.name = "ScreenShotGameObject";
         screenshotGameObject.transform.position = new Vector3(0, 100, 0);
         // Create camera and set Local Transofrm to Vector3.zero
-        Camera camera = new GameObject().AddComponent<Camera>();
-        camera.name = "ScreenShotCamera";
-        camera.targetDisplay = 1;
-        camera.transform.SetParent(screenshotGameObject.transform, false);
-        camera.transform.localPosition = Vector3.zero;
+        _screenshotCamera = new GameObject().AddComponent<Camera>();
+        _screenshotCamera.name = "ScreenShotCamera";
+        _screenshotCamera.targetDisplay = 1;
+        _screenshotCamera.transform.SetParent(screenshotGameObject.transform, false);
+        _screenshotCamera.transform.localPosition = Vector3.zero;
         
         // Create a plane like a background for Items
         GameObject plane = Instantiate(Content.Instance.ScreenshotBackground);
@@ -36,6 +38,7 @@ public class FoodScreenShotManager : MonoBehaviour
     {
         // Create a Instance of FoodEntity and later take a screenshot of it
         FoodEntity cameraFoodEntity = Instantiate(foodEntity);
+        cameraFoodEntity.transform.SetParent(_itemHolder.transform, false);
         Sprite sprite = TakeScreenshot();
         // Destroy shoted Game Object after taking a screenshot
         Destroy(cameraFoodEntity.gameObject);
@@ -46,7 +49,7 @@ public class FoodScreenShotManager : MonoBehaviour
     private Sprite TakeScreenshot()
     {
         // Create a RenderTexture to capture the screenshot
-        RenderTexture renderTexture = new RenderTexture(Screen.width, Screen.height, 24);
+        RenderTexture renderTexture = new RenderTexture(240, 240, 24);
         _screenshotCamera.targetTexture = renderTexture;
 
         // Render the camera to the RenderTexture
@@ -60,7 +63,7 @@ public class FoodScreenShotManager : MonoBehaviour
 
         // Create a new Sprite from the Texture2D
         Sprite screenshotSprite = Sprite.Create(screenshotTexture, new Rect(0, 0, screenshotTexture.width, screenshotTexture.height), Vector2.zero);
-
+        screenshotSprite.name = "G"; // Tag for Generated Sprites
         // Clean up
         RenderTexture.active = null;
         _screenshotCamera.targetTexture = null;
@@ -69,4 +72,5 @@ public class FoodScreenShotManager : MonoBehaviour
         // Return the Sprite
         return screenshotSprite;
     }
+    // TO DO : FIX PROBLEM WITH TEXTURE UNLOADING
 }

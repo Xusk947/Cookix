@@ -36,7 +36,7 @@ public class FoodItem : Item
 
         if (Icon != null)
         {
-            GameObject icon = GenerateIcon();
+            GameObject icon = GenerateIcon(ScreenshotManager.Instance.TakeFoodEntityScreenShot(foodEntity));
             icon.transform.SetParent(foodEntity.transform);
             float scaleFactor = 1 / foodEntity.transform.localScale.x;
             icon.transform.localPosition = new Vector3(0, 0.5f, 0) * scaleFactor;

@@ -27,4 +27,19 @@ public class Item : ScriptableObject
 
         return Canvas;
     }
+
+    public GameObject GenerateIcon(Sprite sprite)
+    {
+        GameObject Canvas = Instantiate(Content.Instance.FoodItemUI);
+        Sprite iconToSet = Icon;
+        if (iconToSet == null)
+        {
+            iconToSet = sprite;
+        }
+
+        Canvas.transform.GetComponentInChildren<UnityEngine.UI.Image>().sprite = iconToSet;
+
+
+        return Canvas;
+    }
 }

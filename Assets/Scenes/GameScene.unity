@@ -1076,6 +1076,7 @@ MonoBehaviour:
   FoodItemGridUI: {fileID: 0}
   Icon: {fileID: 0}
   CookProgressBar: {fileID: 0}
+  ScreenshotBackground: {fileID: 0}
 --- !u!114 &792251704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1088,7 +1089,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9917a97f3133424189116994afb6254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _screenshotCamera: {fileID: 0}
 --- !u!1001 &804651043
 PrefabInstance:
   m_ObjectHideFlags: 0
