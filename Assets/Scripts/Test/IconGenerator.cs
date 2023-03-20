@@ -27,7 +27,6 @@ public class IconGenerator : MonoBehaviour
                 Destroy(_image.sprite.texture);
             }
             FoodEntity burger = _burger.Create();
-            for (int i = 0; i < Random.Range(1, 5); i++)
             {
                 FoodEntity burgerNew = CombineShit(burger);
                 Destroy(burger);
