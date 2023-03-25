@@ -16,6 +16,11 @@ public class FoodSource : Block
         {
             if (player.CurrentItem.item == sourceItem)
             {
+                // If Player Item is Food Entity we check for additional Items on it, and if it has something we dont remove player item
+                if (player.CurrentItem is FoodEntity && (player.CurrentItem as FoodEntity).addedItems.Count > 0)
+                {
+                    return;
+                }
                 player.RemoveItem();
             } else if (player.CurrentItem is KitchenItemEntity)
             {
