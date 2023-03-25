@@ -7,12 +7,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ItemTask", menuName = "Cookix/Item Task/ItemTask")]
 public class FoodTask : ScriptableObject
 {
-    private FoodEntity _item;
-
-    public FoodEntity Item { get { return _item; } }
-
     [SerializeField]
-    private FoodItem _foodItem;
+    protected FoodItem _foodItem;
 
     public FoodItem FoodItem { get { return _foodItem; } }
 

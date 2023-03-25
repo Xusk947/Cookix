@@ -14,12 +14,12 @@ public class BlockEventsHandler : MonoBehaviour
 
     private void OnKitchenBlockUnselected(object sender, BlockArgs e)
     {
-        e.Block.blockRenderer.material.color = e.Block.baseColor;
+        e.Block.BlockSelection(false);
     }
 
     private void OnKitchenBlockSelected(object sender, BlockArgs e)
     {
-        e.Block.blockRenderer.material.color = e.Block.smoothColor;
+        e.Block.BlockSelection(true);
     }
 
     private void OnKitchenBlockInteract(object sender, BlockArgs e)
