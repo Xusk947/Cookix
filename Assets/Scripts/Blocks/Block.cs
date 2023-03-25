@@ -25,7 +25,7 @@ public class Block : MonoBehaviour
 
     }
 
-    public virtual void SecondInteract(PlayerController player)
+    public virtual void SecondInteract(PlayerController player, bool isPress)
     {
 
     }

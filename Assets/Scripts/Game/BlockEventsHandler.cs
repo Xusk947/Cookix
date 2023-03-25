@@ -29,6 +29,6 @@ public class BlockEventsHandler : MonoBehaviour
 
     private void OnKitchenBlockSecondInteract(object sender, BlockArgs e)
     {
-        e.Block.SecondInteract(e.PlayerController);
+        e.Block.SecondInteract(e.PlayerController, e.PressCondition);
     }
 }

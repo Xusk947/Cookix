@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
     // Base variables
-    [SerializeField] private GameInput _gameInput;
+    private GameInput _gameInput;
     private Rigidbody _rigidBody;
     private CharacterController _characterController;
     // Raycast
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour
         _rigidBody = GetComponent<Rigidbody>();
         _characterController = GetComponent<CharacterController>();
         // Connect Input
+        _gameInput = GameInput.Instance;
         _gameInput.OnInteractAction += PlayerInteract;
         _gameInput.OnSecondInteractAction += PlayerSecondInteract;
         // Create a ray for cheking blocks forward the Player
@@ -65,12 +67,12 @@ public class PlayerController : MonoBehaviour
             Events.OnKitchenBlockInteract(new BlockArgs(this, _selectedBlock));
         }
     }
-
-    private void PlayerSecondInteract(object sender, System.EventArgs e)
+    // Event Args sended by BoolEventArgs which transfer a press button condition
+    private void PlayerSecondInteract(object sender, EventArgs e)
     {
         if (_selectedBlock != null)
         {
-            Events.OnKitchenBlockSecondInteract(new BlockArgs(this, _selectedBlock));
+            Events.OnKitchenBlockSecondInteract(new BlockArgs(this, _selectedBlock, (e as BoolEventArgs).Condition));
         }
     }
 
