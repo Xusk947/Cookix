@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f93aa5cea6949e47b0b64179420821d, type: 3}
   m_Name: ClassicBurger
   m_EditorClassIdentifier: 
-  _foodItem: {fileID: 0}
-  foodItems: []
+  _foodItem: {fileID: 11400000, guid: f66659749dda4014a9008c74534e81cf, type: 2}
+  foodItems:
+  - {fileID: 11400000, guid: 3ef1eade8f80a78448807830e9636642, type: 2}

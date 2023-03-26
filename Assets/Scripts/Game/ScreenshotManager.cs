@@ -34,7 +34,7 @@ public class ScreenshotManager : MonoBehaviour
         _itemHolder.transform.localPosition = new Vector3(0, -0.2f, 1f);
     }
 
-    public Sprite TakeFoodEntityScreenShot(FoodEntity foodEntity)
+    public Sprite TakeFoodEntityScreenShot(FoodEntity foodEntity, bool destroyEntityOnFinish = false)
     {
         // Create a Instance of FoodEntity and later take a screenshot of it
         FoodEntity cameraFoodEntity = Instantiate(foodEntity);
@@ -42,6 +42,8 @@ public class ScreenshotManager : MonoBehaviour
         Sprite sprite = TakeScreenshot();
         // Destroy shoted Game Object after taking a screenshot
         Destroy(cameraFoodEntity.gameObject);
+
+        if (destroyEntityOnFinish) Destroy(foodEntity);
 
         return sprite;
     }

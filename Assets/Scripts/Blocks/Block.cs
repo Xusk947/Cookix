@@ -16,6 +16,7 @@ public class Block : MonoBehaviour
         {
             _blockRenderer = transform.GetComponent<Renderer>();
         }
+
         _baseColor = new List<Color>();
         foreach (Material material in _blockRenderer.materials)
         {
@@ -25,7 +26,7 @@ public class Block : MonoBehaviour
         _smoothColor = new List<Color>();
         foreach (Material material in _blockRenderer.materials)
         {
-            _smoothColor.Add(material.color * 0.8f);
+            _smoothColor.Add(material.color * 1.4f);
         }
     }
 

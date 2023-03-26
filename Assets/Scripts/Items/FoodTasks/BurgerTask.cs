@@ -22,4 +22,13 @@ public class BurgerTask : FoodTask
         }
         return true;
     }
+
+    public override List<FoodItem> GetIngredients()
+    {
+        List<FoodItem> ingredients = new List<FoodItem> { _foodItem };
+
+        ingredients.AddRange(foodItems.ToArray());
+
+        return ingredients;
+    }
 }
