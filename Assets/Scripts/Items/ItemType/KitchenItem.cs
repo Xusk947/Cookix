@@ -6,7 +6,7 @@ public class KitchenItem : Item
 {
     public int maxHoldItems;
     public CookingType useFor;
-    public new KitchenItemEntity Create()
+    public new KitchenItemEntity Create(bool showIcon = true)
     {
         KitchenItemEntity kitchenItemEntity = Instantiate(Prefab).AddComponent<KitchenItemEntity>();
         kitchenItemEntity.item = this;

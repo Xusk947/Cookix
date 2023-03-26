@@ -29,12 +29,12 @@ public class FoodItem : Item
     [Space(10), SerializeField]
     private List<CombineData> combineWith = new List<CombineData>();
 
-    public new FoodEntity Create()
+    public new FoodEntity Create(bool showIcon = true)
     {
         FoodEntity foodEntity = Instantiate(Prefab).AddComponent<FoodEntity>();
         foodEntity.item = this;
 
-        if (Icon != null)
+        if (Icon != null && showIcon)
         {
             GameObject icon = GenerateIcon(ScreenshotManager.Instance.TakeFoodEntityScreenShot(foodEntity));
             icon.transform.SetParent(foodEntity.transform);

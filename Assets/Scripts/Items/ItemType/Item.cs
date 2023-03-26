@@ -7,11 +7,11 @@ public class Item : ScriptableObject
     public Sprite Icon;
     public string Name;
 
-    public ItemEntity Create()
+    public ItemEntity Create(bool showIcon = true)
     {
         ItemEntity itemEntity = Instantiate(Prefab).AddComponent<ItemEntity>();
         itemEntity.item = this;
-        if (Icon != null)
+        if (Icon != null && showIcon)
         {
             GameObject icon = GenerateIcon();
             icon.transform.SetParent(itemEntity.transform);

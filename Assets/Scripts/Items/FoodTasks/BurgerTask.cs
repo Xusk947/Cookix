@@ -31,4 +31,15 @@ public class BurgerTask : FoodTask
 
         return ingredients;
     }
+
+    public override FoodEntity GetFoodEntity()
+    {
+        FoodEntity foodEntity = _foodItem.Create(false);
+        foreach (FoodItem item in foodItems)
+        {
+            foodEntity.CanCombine(item.Create(false), out foodEntity);
+        }
+
+        return foodEntity;
+    }
 }

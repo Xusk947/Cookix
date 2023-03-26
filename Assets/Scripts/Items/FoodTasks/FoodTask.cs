@@ -15,16 +15,6 @@ public class FoodTask : ScriptableObject
     public Sprite Icon { get { return _icon; } }
     public FoodItem FoodItem { get { return _foodItem; } }
 
-    public void Awake()
-    {
-        if (_icon == null)
-        {
-            FoodEntity forScreenShot = GetFoodEntity();
-
-            _icon = ScreenshotManager.Instance.TakeFoodEntityScreenShot(GetFoodEntity(), true);
-        }
-    }
-
     public virtual bool Compare(FoodEntity item)
     {
         return item.foodItem == _foodItem;
@@ -35,9 +25,9 @@ public class FoodTask : ScriptableObject
         return new List<FoodItem>() { _foodItem };
     }
 
-    protected FoodEntity GetFoodEntity()
+    public virtual FoodEntity GetFoodEntity()
     {
-        FoodEntity entity = _foodItem.Create();
+        FoodEntity entity = _foodItem.Create(false);
 
         return entity;
     }

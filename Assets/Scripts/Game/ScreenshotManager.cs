@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class ScreenshotManager : MonoBehaviour
 {
+    private static String DEFAULT_SPRITE_NAME = "G";
     public static ScreenshotManager Instance { get; private set; }
     private Camera _screenshotCamera;
     private GameObject _itemHolder;
 
-    private void Start()
+    public void Awake()
     {
         Instance = this;
         GameObject screenshotGameObject = new GameObject();
@@ -21,9 +22,9 @@ public class ScreenshotManager : MonoBehaviour
         _screenshotCamera.targetDisplay = 1;
         _screenshotCamera.transform.SetParent(screenshotGameObject.transform, false);
         _screenshotCamera.transform.localPosition = Vector3.zero;
-        
+
         // Create a plane like a background for Items
-        GameObject plane = Instantiate(Content.Instance.ScreenshotBackground);
+        GameObject plane = Instantiate(Resources.Load<GameObject>("Models/Prefabs/UI/Background"));
         plane.transform.SetParent(screenshotGameObject.transform, false);
         plane.transform.localPosition = new Vector3(0, 0, 3);
         plane.transform.localScale = new Vector3(10, 10, 0.2f);
@@ -36,14 +37,20 @@ public class ScreenshotManager : MonoBehaviour
 
     public Sprite TakeFoodEntityScreenShot(FoodEntity foodEntity, bool destroyEntityOnFinish = false)
     {
-        // Create a Instance of FoodEntity and later take a screenshot of it
-        FoodEntity cameraFoodEntity = Instantiate(foodEntity);
+        FoodEntity cameraFoodEntity;
+        if (destroyEntityOnFinish)
+        {
+            // Take a given Food entity and after screenshot destroy it
+            cameraFoodEntity = foodEntity;
+        } else
+        {
+            // Create a Instance of FoodEntity and later take a screenshot of it
+            cameraFoodEntity = Instantiate(foodEntity);
+        }
         cameraFoodEntity.transform.SetParent(_itemHolder.transform, false);
         Sprite sprite = TakeScreenshot();
         // Destroy shoted Game Object after taking a screenshot
         Destroy(cameraFoodEntity.gameObject);
-
-        if (destroyEntityOnFinish) Destroy(foodEntity);
 
         return sprite;
     }
@@ -65,7 +72,7 @@ public class ScreenshotManager : MonoBehaviour
 
         // Create a new Sprite from the Texture2D
         Sprite screenshotSprite = Sprite.Create(screenshotTexture, new Rect(0, 0, screenshotTexture.width, screenshotTexture.height), Vector2.zero);
-        screenshotSprite.name = "G"; // Tag for Generated Sprites
+        screenshotSprite.name = DEFAULT_SPRITE_NAME; // Tag for Generated Sprites
         // Clean up
         RenderTexture.active = null;
         _screenshotCamera.targetTexture = null;
