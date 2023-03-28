@@ -1,20 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(GameInput))]
 [RequireComponent(typeof(BlockEventsHandler))]
-[RequireComponent(typeof(Content))]
 [RequireComponent(typeof(ScreenshotManager))]
 [RequireComponent(typeof(FoodTaskManager))]
+[InitializeOnLoad]
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
     public Canvas canvas;
-    private void Start()
+    public List<FoodReciever> recievers;
+    private void Awake()
     {
         Instance = this;
+        recievers = new List<FoodReciever>();
+
+        Content content = gameObject.AddComponent<Content>();
+        content.Load();
     }
 }

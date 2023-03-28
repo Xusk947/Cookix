@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class CookingStove : Table
 {
     public KitchenItem ItemToSpawn;
+    public float cookSpeed = .5f;
     private GameObject hud;
     private Image progressBar;
     protected new void Start()
@@ -26,7 +27,7 @@ public class CookingStove : Table
         if (kitchenItemEntity.CanCook())
         {
             hud.SetActive(true);
-            kitchenItemEntity.cookingProgress += Time.deltaTime / 10f;
+            kitchenItemEntity.cookingProgress += Time.deltaTime * cookSpeed;
             progressBar.fillAmount = kitchenItemEntity.cookingProgress;
             if (kitchenItemEntity.cookingProgress > 1.0f)
             {

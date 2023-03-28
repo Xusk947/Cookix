@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+    public static List<PlayerController> players = new List<PlayerController>();
+
     // Base variables
     private GameInput _gameInput;
     private Rigidbody _rigidBody;
@@ -58,6 +61,8 @@ public class PlayerController : MonoBehaviour
         // Find another Children
         _eyes = transform.Find("Eyes").gameObject;
         ItemHolder = transform.Find("ItemHolder");
+
+        players.Add(this);
     }
 
     private void PlayerInteract(object sender, System.EventArgs e)
