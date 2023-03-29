@@ -67,7 +67,7 @@ public class FoodReciever : Block
             foreach (PlayerController player in PlayerController.players)
         {
             float distance = Vector3.Distance(player.transform.position, this.transform.position);
-            if (distance < 2.5f)
+            if (distance < 2.5f && distance > 2f)
             {
                 float scale = 1.5f / distance;
                 if (scale > 1.2f) scale = 1.2f;
@@ -86,6 +86,8 @@ public class FoodReciever : Block
         {
             FoodTaskManager.Instance.RemoveTask(Task);
             Task = null;
+            IconHide iconHide = Instantiate(Content.Instance.IconAccept);
+            iconHide.transform.position = transform.position + Vector3.up;
             player.RemoveItem();
         }
     }

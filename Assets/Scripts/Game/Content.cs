@@ -20,6 +20,8 @@ public class Content : MonoBehaviour
     // Blocks UI
     [HideInInspector]
     public GameObject CookProgressBar;
+    // Icons 
+    public IconHide IconCancel, IconAccept;
     // Sprites
     [HideInInspector]
     public Sprite Pixel1x1;
@@ -33,6 +35,9 @@ public class Content : MonoBehaviour
         CookProgressBar = Resources.Load<GameObject>("Models/Prefabs/UI/CookProgressBar");
 
         Pixel1x1 = Resources.Load<Sprite>("Sprites/UI/pixel1x1");
+
+        IconCancel = Resources.Load<IconHide>("Models/Prefabs/UI/CancelIcon");
+        IconAccept = Resources.Load<IconHide>("Models/Prefabs/UI/AcceptIcon");
 
         Instance = this;
     }

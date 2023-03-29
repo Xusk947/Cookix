@@ -16,3 +16,4 @@ MonoBehaviour:
   _foodItem: {fileID: 11400000, guid: f66659749dda4014a9008c74534e81cf, type: 2}
   foodItems:
   - {fileID: 11400000, guid: 3ef1eade8f80a78448807830e9636642, type: 2}
+  - {fileID: 11400000, guid: 250f78c9c7922c041b9dfc6f17c90c7a, type: 2}
