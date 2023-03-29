@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class FoodReciever : Block
 {
+    private const float _TIME = 5f;
     private FoodTask _task;
     private FoodTaskImage UIHolder;
+    private float _timer;
 
     public FoodTask Task { 
         get 
@@ -49,8 +51,20 @@ public class FoodReciever : Block
 
     private void Update()
     {
-        if (UIHolder == null) return;
-        foreach (PlayerController player in PlayerController.players)
+        if (UIHolder == null)
+        {
+            _timer -= Time.deltaTime;
+            if (_timer < 0)
+            {
+                _timer = _TIME;
+                if (Task == null)
+                {
+                    Task = FoodTaskManager.Instance.TakeTask();
+                }
+            }
+            return;
+        }
+            foreach (PlayerController player in PlayerController.players)
         {
             float distance = Vector3.Distance(player.transform.position, this.transform.position);
             if (distance < 2.5f)
@@ -67,12 +81,11 @@ public class FoodReciever : Block
         if (PlayerItemIsNotFoodEntity(player)) return;
         FoodEntity playerItem = player.CurrentItem as FoodEntity;
 
-        FoodTask finishedTask = FoodTaskManager.Instance.CheckItemForTask(playerItem);
         // Remove player Item if task is finished and later remove this task in TaskManager
-        if (finishedTask != null)
+        if (Task.Compare(playerItem))
         {
+            FoodTaskManager.Instance.RemoveTask(Task);
             Task = null;
-            FoodTaskManager.Instance.RemoveTask(finishedTask);
             player.RemoveItem();
         }
     }

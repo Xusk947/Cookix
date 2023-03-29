@@ -27,18 +27,11 @@ public class FoodTaskManager : MonoBehaviour
         if (timer < 0f)
         {
             if (_foodTasks.Count < 1) return;
-            if (_activeTasks.Count < 3)
+            if (_activeTasks.Count + _takedTasks.Count < 3)
             {
                 FoodTask task = GenerateTask();
                 print("New task Become: " + task);
                 _activeTasks.Add(task);
-                foreach (FoodReciever foodReciever in GameManager.Instance.recievers)
-                {
-                    if (foodReciever.Task == null)
-                    {
-                        foodReciever.Task = TakeTask();
-                    }
-                }
             }
             timer = 10f;
         }
@@ -80,6 +73,7 @@ public class FoodTaskManager : MonoBehaviour
     }
     public void RemoveTask(FoodTask task)
     {
+        print("Task finished : " + task);
         _takedTasks.Remove(task);
     }
 
