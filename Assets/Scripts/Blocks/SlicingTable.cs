@@ -7,19 +7,26 @@ using UnityEngine.UI;
 public class SlicingTable : Table
 {
     public float SliceTime = 0.125f;
+    // UI
     private GameObject _hud;
     private Image _progressBar;
 
-    private Animator _animator;
+    // Slice Group
+    private GameObject _knife;
     private bool _isSlicing = false;
     private float _sliceProgress = 0f;
     private float _sliceTimer = 0f;
+    /// <summary>
+    /// Player who slicing on this block
+    /// At the same time only 1 player can slice Items
+    /// </summary>
+    private PlayerController _player;
 
     protected new void Start()
     {
         base.Start();
-        _animator = GetComponent<Animator>();
         SpawnHUD();
+        _knife = transform.Find("knife").gameObject;
     }
 
     protected void FixedUpdate()
@@ -49,19 +56,21 @@ public class SlicingTable : Table
         if (_itemEntity is not FoodEntity) return;
         FoodEntity foodEntity = _itemEntity as FoodEntity;
         if (!foodEntity.foodItem.canBeSliced) return;
-
+        if (player.CurrentItem != null) return;
         _isSlicing = isPress;
         if (!isPress)
         {
             StopSlicing();
+            return;
         }
+        _player = player;
+        _player.IsSlicing = true;
     }
 
     private void FinishSlice(FoodEntity foodEntity)
     {
         
         StopSlicing();
-        _isSlicing = false;
         _sliceProgress = 0f;
         FoodEntity slicedFoodEntity = foodEntity.foodItem.slicedPrefab.Create();
         Destroy(foodEntity.gameObject);
@@ -72,7 +81,13 @@ public class SlicingTable : Table
     {
         _progressBar.fillAmount = 0f;
         _hud.SetActive(false);
-        _animator.SetBool("isSlicing", false);
+        _knife.SetActive(true);
+        _isSlicing = false;
+
+        if (_player != null)
+        {
+            _player.IsSlicing = false;
+        }
     }
 
     private void Slice()
@@ -81,7 +96,7 @@ public class SlicingTable : Table
         _sliceProgress += 0.1f;
         _progressBar.fillAmount = _sliceProgress;
         _hud.SetActive(true);
-        _animator.SetBool("isSlicing", true);
+        _knife.SetActive(false);
     }
 
     private void SpawnHUD()
@@ -92,5 +107,14 @@ public class SlicingTable : Table
         _progressBar = _hud.transform.GetChild(1).GetComponent<Image>();
         _progressBar.fillAmount = 0;
         _hud.SetActive(false);
+    }
+
+    public override void BlockHover(bool focused)
+    {
+        base.BlockHover(focused);
+        if (!focused)
+        {
+            StopSlicing();
+        }
     }
 }

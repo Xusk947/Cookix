@@ -62,7 +62,7 @@ public abstract class Block : MonoBehaviour
     /// When player eyes interact with it
     /// </summary>
     /// <param name="focused">is in player eyes</param>
-    public void BlockHover(bool focused)
+    public virtual void BlockHover(bool focused)
     {
         List<Color> colorToSet;
         if (focused)

@@ -8,24 +8,49 @@ public class PlayerController : MonoBehaviour
     public static List<PlayerController> players = new List<PlayerController>();
 
     // Base variables
+    private bool _isSlicing;
+    /// <summary>
+    /// Use for animation state
+    /// </summary>
+    public bool IsSlicing
+    {
+        get { return _isSlicing; }
+        set
+        {
+            _isSlicing = value;
+            _knife.SetActive(value);
+            _animator.SetBool("IsSlicing", value);
+        }
+    }
+
     private GameInput _gameInput;
     private Rigidbody _rigidBody;
     private CharacterController _characterController;
     private Animator _animator;
     // Raycast
-    [Space(2)]
-    [SerializeField]
     private float _raycastDistance = 4f;
     private Ray _ray;
     private GameObject _eyes;
     private int _collisionLayers = (1 << 8);
 
-    // Item
-    public Transform ItemHolder;
+    // Children
+    public Transform ItemHolder { get; private set; }
+    /// <summary>
+    /// Prefab of knife, use in Slice animation
+    /// </summary>
+    private GameObject _knife;
+    /// <summary>
+    /// Item which player hold in current time
+    /// </summary>
     private ItemEntity _currentItem { get; set; } 
-    // Block Interaction
+    /// <summary>
+    /// Block which is hovered by player Eyes
+    /// </summary>
     private Block _selectedBlock;
-
+    /// <summary>
+    /// Return player item on they hand
+    /// When set a new Item, remove old one and change animation state
+    /// </summary>
     public ItemEntity CurrentItem
     { 
         get 
@@ -43,6 +68,10 @@ public class PlayerController : MonoBehaviour
             _currentItem = value;
         } 
     }
+    
+    /// <summary>
+    /// Remove item from player hands if it exist
+    /// </summary>
     public void RemoveItem()
     {
         if (_currentItem != null)
@@ -64,20 +93,33 @@ public class PlayerController : MonoBehaviour
         // Create a ray for cheking blocks forward the Player
         _ray = new Ray();
         // Find another Children
-        _eyes = transform.Find("Eyes").gameObject;
-        ItemHolder = transform.Find("ItemHolder");
+        _eyes = transform.Find("eyes").gameObject;
+        print(transform.Find("hand-left"));
+        print(transform.Find("hand-left").Find("knife"));
+        _knife = transform.Find("hand-left").Find("knife").gameObject;
+        _knife.SetActive(false);
+        ItemHolder = transform.Find("itemHolder");
 
         players.Add(this);
     }
-
-    private void PlayerInteract(object sender, System.EventArgs e)
+    /// <summary>
+    /// When player interact with block by first Interact Key, and send Event.OnKitchenBlockInteract
+    /// </summary>
+    /// <param name="sender">not used</param>
+    /// <param name="e">is null</param>
+    private void PlayerInteract(object sender, EventArgs e)
     {
         if (_selectedBlock != null)
         {
             Events.OnKitchenBlockInteract(new BlockArgs(this, _selectedBlock));
         }
     }
-    // Event Args sended by BoolEventArgs which transfer a press button condition
+    /// <summary>
+    /// When player interact with block by second Interact Key, send Event.OnKitchenBlockSecondInteract
+    /// Event Args sended by BoolEventArgs which transfer a press button condition
+    /// </summary>
+    /// <param name="sender">not used</param>
+    /// <param name="e">also send a holding condition when player press and release button</param>
     private void PlayerSecondInteract(object sender, EventArgs e)
     {
         if (_selectedBlock != null)
@@ -96,7 +138,9 @@ public class PlayerController : MonoBehaviour
     {
         UpdateMovement();
     }
-
+    /// <summary>
+    /// Create a Ray on his Eyes and when it's collide with block set _selectedBlock to new one
+    /// </summary>
     private void UpdateInteraction()
     {
         _ray = new Ray(_eyes.transform.position, Vector3.down);
@@ -145,12 +189,6 @@ public class PlayerController : MonoBehaviour
         Vector3 position = transform.position + direction * Time.deltaTime * 5f;
         transform.forward = Vector3.Slerp(transform.forward, direction, Time.deltaTime * 7.5f);
         _characterController.SimpleMove(direction * 5f);
-    }
-
-    public void OnDrawGizmos()
-    {
-        GameObject gm = transform.GetChild(1).gameObject;
-        Gizmos.DrawSphere(gm.transform.position, 0.25f);
-        Gizmos.color = Color.red;
+        _animator.SetBool("IsMoving", _characterController.velocity.magnitude > 0.1f);
     }
 }
