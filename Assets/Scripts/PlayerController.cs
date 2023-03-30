@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private GameInput _gameInput;
     private Rigidbody _rigidBody;
     private CharacterController _characterController;
+    private Animator _animator;
     // Raycast
     [Space(2)]
     [SerializeField]
@@ -34,7 +35,9 @@ public class PlayerController : MonoBehaviour
         set 
         {
             _currentItem = value;
+            _animator.SetBool("HasAnItem", false);
             if (_currentItem == null) return;
+            _animator.SetBool("HasAnItem", true);
             _currentItem.transform.parent = ItemHolder.transform;
             _currentItem.transform.position = ItemHolder.transform.position;
             _currentItem = value;
@@ -44,6 +47,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_currentItem != null)
         {
+            _animator.SetBool("HasAnItem", false);
             Destroy(_currentItem.gameObject);
         }
     }
@@ -52,6 +56,7 @@ public class PlayerController : MonoBehaviour
         // Get base components
         _rigidBody = GetComponent<Rigidbody>();
         _characterController = GetComponent<CharacterController>();
+        _animator = GetComponent<Animator>();
         // Connect Input
         _gameInput = GameInput.Instance;
         _gameInput.OnInteractAction += PlayerInteract;
