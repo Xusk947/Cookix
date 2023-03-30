@@ -2,10 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Block : MonoBehaviour
+/// <summary>
+/// Container of a base player interactions
+/// </summary>
+public abstract class Block : MonoBehaviour
 {
+    /// <summary>
+    /// A renderer component of block, used to add an effects with colors
+    /// </summary>
     [HideInInspector] private Renderer _blockRenderer;
+    /// <summary>
+    /// is a default color in inspector
+    /// </summary>
     [HideInInspector] private List<Color> _baseColor;
+    /// <summary>
+    /// color when block is hovered by player
+    /// </summary>
     [HideInInspector] private List<Color> _smoothColor;
     protected void Start()
     {
@@ -29,18 +41,28 @@ public class Block : MonoBehaviour
             _smoothColor.Add(material.color * 1.4f);
         }
     }
-
+    /// <summary>
+    /// Use
+    /// </summary>
+    /// <param name="player"> is Player who interact with this block</param>
     public virtual void Interact(PlayerController player)
     {
 
     }
-
+    /// <summary>
+    /// Second Interact is the option for controll when Player keep hold a button
+    /// </summary>
+    /// <param name="player">who interact with this block</param>
+    /// <param name="isPress">Use in Update methods to know when button is press off</param>
     public virtual void SecondInteract(PlayerController player, bool isPress)
     {
 
     }
-
-    public void BlockSelection(bool focused)
+    /// <summary>
+    /// When player eyes interact with it
+    /// </summary>
+    /// <param name="focused">is in player eyes</param>
+    public void BlockHover(bool focused)
     {
         List<Color> colorToSet;
         if (focused)

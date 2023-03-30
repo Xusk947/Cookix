@@ -95,6 +95,6 @@ public class FoodTaskManager : MonoBehaviour
 
         foodTaskHolder.AddComponent<VerticalLayoutGroup>();
 
-        foodTaskHolder.transform.SetParent(GameManager.Instance.canvas.transform, false);
+        foodTaskHolder.transform.SetParent(GameManager.Instance.Canvas.transform, false);
     }
 }

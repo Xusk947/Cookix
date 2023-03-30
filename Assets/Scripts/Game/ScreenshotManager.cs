@@ -19,7 +19,8 @@ public class ScreenshotManager : MonoBehaviour
         // Create camera and set Local Transofrm to Vector3.zero
         _screenshotCamera = new GameObject().AddComponent<Camera>();
         _screenshotCamera.name = "ScreenShotCamera";
-        _screenshotCamera.targetDisplay = 1;
+        _screenshotCamera.gameObject.SetActive(false);
+        _screenshotCamera.targetDisplay = 2;
         _screenshotCamera.transform.SetParent(screenshotGameObject.transform, false);
         _screenshotCamera.transform.localPosition = Vector3.zero;
 
@@ -59,6 +60,7 @@ public class ScreenshotManager : MonoBehaviour
     {
         // Create a RenderTexture to capture the screenshot
         RenderTexture renderTexture = new RenderTexture(240, 240, 24);
+        _screenshotCamera.gameObject.SetActive(true);
         _screenshotCamera.targetTexture = renderTexture;
 
         // Render the camera to the RenderTexture
@@ -76,6 +78,7 @@ public class ScreenshotManager : MonoBehaviour
         // Clean up
         RenderTexture.active = null;
         _screenshotCamera.targetTexture = null;
+        _screenshotCamera.gameObject.SetActive(false);
         Destroy(renderTexture);
 
         // Return the Sprite

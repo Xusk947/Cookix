@@ -4,11 +4,23 @@ using UnityEngine;
 
 public class KitchenItemEntity : ItemEntity
 {
+    /// <summary>
+    /// Progress of cook, from 0 to 1
+    /// </summary>
     public float cookingProgress = 0f;
+    /// <summary>
+    /// when food on it is done
+    /// </summary>
     public bool isCooked;
-
+    /// <summary>
+    /// List of items inside which was added to it
+    /// </summary>
     private List<FoodEntity> itemsInside = new List<FoodEntity>();
     
+    /// <summary>
+    /// Can uese this Item for cooking
+    /// </summary>
+    /// <returns>check count of items inside and Cook Type of each item</returns>
     public bool CanCook()
     {
         if (itemsInside.Count <= 0) return false;
@@ -18,6 +30,11 @@ public class KitchenItemEntity : ItemEntity
         }
         return true;
     }
+    /// <summary>
+    /// Try to put item on themself so when it's added return true and automaticlly add Item as a new GameObject
+    /// </summary>
+    /// <param name="item">which item will be placed on it</param>
+    /// <returns></returns>
     public bool TryToAddItem(FoodEntity item)
     {
         if (CanAddItem(item))
@@ -95,7 +112,11 @@ public class KitchenItemEntity : ItemEntity
         if (itemsInside.Count >= kitchenItem.maxHoldItems) return false;
         return CanUse(item.foodItem);
     }
-
+    /// <summary>
+    /// Check for Cook Type of item and return true when it is the same
+    /// </summary>
+    /// <param name="item">which item will be checked for CookingType</param>
+    /// <returns></returns>
     private bool CanUse(FoodItem item)
     {
         switch (kitchenItem.useFor)
@@ -110,7 +131,11 @@ public class KitchenItemEntity : ItemEntity
                 return false;
         }
     }
-
+    /// <summary>
+    /// Get Prefab of Item based cooking type
+    /// </summary>
+    /// <param name="item">return prefab of this cooked type</param>
+    /// <returns></returns>
     private FoodItem GetPrefabFromItem(FoodItem item)
     {
         switch (kitchenItem.useFor)
@@ -125,6 +150,8 @@ public class KitchenItemEntity : ItemEntity
                 return null;
         }
     }
-
+    /// <summary>
+    /// another way to get this Item already as KitchenItem
+    /// </summary>
     public KitchenItem kitchenItem { get { return item as KitchenItem; } }
 }

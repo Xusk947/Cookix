@@ -12,7 +12,7 @@ public class BurgerItem : FoodItem
     {
         FoodEntity newFoodEntity = new GameObject().AddComponent<FoodEntity>();
         newFoodEntity.item = baseFoodItem.item;
-        newFoodEntity.name = "MergerBurger";
+        newFoodEntity.name = "MergedBurger";
         newFoodEntity.transform.position = Vector3.zero;
         // Transfer all copied Items to new Food Entity, then add new combined Item 
         newFoodEntity.addedItems = new List<CombineData>(baseFoodItem.addedItems);

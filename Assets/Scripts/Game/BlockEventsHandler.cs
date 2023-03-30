@@ -14,12 +14,12 @@ public class BlockEventsHandler : MonoBehaviour
 
     private void OnKitchenBlockUnselected(object sender, BlockArgs e)
     {
-        e.Block.BlockSelection(false);
+        e.Block.BlockHover(false);
     }
 
     private void OnKitchenBlockSelected(object sender, BlockArgs e)
     {
-        e.Block.BlockSelection(true);
+        e.Block.BlockHover(true);
     }
 
     private void OnKitchenBlockInteract(object sender, BlockArgs e)

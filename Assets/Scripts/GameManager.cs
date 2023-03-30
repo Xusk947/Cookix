@@ -13,12 +13,13 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public Canvas canvas;
-    public List<FoodReciever> recievers;
+    public Camera MainCamera;
+    public Canvas Canvas;
+    public List<FoodReciever> Recievers;
     private void Awake()
     {
         Instance = this;
-        recievers = new List<FoodReciever>();
+        Recievers = new List<FoodReciever>();
 
         Content content = gameObject.AddComponent<Content>();
         content.Load();

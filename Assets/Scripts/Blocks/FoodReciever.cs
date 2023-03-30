@@ -46,7 +46,7 @@ public class FoodReciever : Block
     private new void Start()
     {
         base.Start();
-        GameManager.Instance.recievers.Add(this);
+        GameManager.Instance.Recievers.Add(this);
     }
 
     private void Update()

@@ -1344,6 +1344,8 @@ MonoBehaviour:
   FoodTaskUI: {fileID: 0}
   Icon: {fileID: 0}
   CookProgressBar: {fileID: 0}
+  IconCancel: {fileID: 0}
+  IconAccept: {fileID: 0}
   Pixel1x1: {fileID: 0}
 --- !u!114 &792251704
 MonoBehaviour:
