@@ -15,6 +15,8 @@ MonoBehaviour:
   Prefab: {fileID: 8591551567291898770, guid: b120b28bc9004d14687029b0a25c22ca, type: 3}
   Icon: {fileID: 21300000, guid: 1d9b179cacda8a5488d5d7438f3e6edc, type: 3}
   Name: 
+  canBePlacedOnPlate: 1
+  platePrefab: {fileID: 0}
   canBeSliced: 0
   slicedPrefab: {fileID: 0}
   canBeFried: 0

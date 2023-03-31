@@ -28,40 +28,49 @@ public class Table : Block
     {
         if (_itemEntity == null && player.CurrentItem != null)
         {
-            Item = player.CurrentItem;
-            player.CurrentItem = null;
+            TakeItemFromPlayer(player);
             return;
         }
-        else if (_itemEntity != null) {
-            // If player has an item we try to combine it
-            if (player.CurrentItem != null)
+        else if (_itemEntity != null) 
+        {
+            switch(player.CurrentItem)
             {
-                // Check for players & table items if it's a FoodEntity then we make entity.item, Item to FoodItem and get output from CanCombine as combinedItem
-                if (player.CurrentItem is FoodEntity && _itemEntity is FoodEntity)
-                {
-                    InteractFoodEntities(player.CurrentItem as FoodEntity);
-                }
-                // Check if player or a table has a KitchenItemEntity and table/player has a FoodItem try to put this item on the KitchenItemEntity
-                else if ((player.CurrentItem is KitchenItemEntity && _itemEntity is FoodEntity)
-                    || (player.CurrentItem is FoodEntity && _itemEntity is KitchenItemEntity)) // Try to add ingredient from table to Player Kitchen Entity Item
-                {
-                    InteractKitchenItemEntityWithFoodEntity(player);
-                }
-            }
-            // Else just give player item if table has some of it
-            else if (player.CurrentItem == null)
-            {
-                player.CurrentItem = _itemEntity;
-                _itemEntity = null;
+                case null:
+                    GivePlayerItemFromTable(player);
+                    break;
+                case FoodEntity:
+                    if (_itemEntity is FoodEntity) InteractFoodEntities(player, player.CurrentItem as FoodEntity);
+                    else if (_itemEntity is KitchenItemEntity) InteractKitchenItemEntityWithFoodEntity(player, _itemEntity as KitchenItemEntity, player.CurrentItem as FoodEntity);
+                    else if (_itemEntity is PlateEntity) InteractPlateEntityWithFoodEntity(player, _itemEntity as PlateEntity, player.CurrentItem as FoodEntity);
+                    break;
+                case KitchenItemEntity:
+                    if (_itemEntity is FoodEntity) InteractKitchenItemEntityWithFoodEntity(player, player.CurrentItem as KitchenItemEntity, _itemEntity as FoodEntity);
+                    if (_itemEntity is PlateEntity) InteractPlateEntityWithKitchenItemEntity(player, _itemEntity as PlateEntity, player.CurrentItem as KitchenItemEntity);
+                    break;
+                case PlateEntity:
+                    if (_itemEntity is FoodEntity) InteractPlateEntityWithFoodEntity(player, player.CurrentItem as PlateEntity, _itemEntity as FoodEntity);
+                    if (_itemEntity is KitchenItemEntity) InteractPlateEntityWithKitchenItemEntity(player, player.CurrentItem as PlateEntity, _itemEntity as KitchenItemEntity);
+                    break;
             }
         }
     }
+    private void TakeItemFromPlayer(PlayerController player)
+    {
+        Item = player.CurrentItem;
+        player.CurrentItem = null;
+    }
+    private void GivePlayerItemFromTable(PlayerController player)
+    {
+        player.CurrentItem = _itemEntity;
+        _itemEntity = null;
+    }
+    
     /// <summary>
     /// Combine FoodEntity on the table with another one from other holder
     /// If it can Combine
     /// </summary>
     /// <param name="playerItem">Item which will combined with another one</param>
-    private void InteractFoodEntities(FoodEntity playerItem)
+    private void InteractFoodEntities(PlayerController player, FoodEntity playerItem)
     {
         // Convert ItemEntity to FoodItem
         FoodEntity foodEntity = _itemEntity as FoodEntity;
@@ -72,28 +81,17 @@ public class Table : Block
         {
             // Create new Item and put it on the Table
             Item = combinedFoodItem;
+            player.CurrentItem = null;
         }
     }
+
     /// <summary>
     /// Interact Kitchen Item with Food Entity
     /// </summary>
     /// <param name="player">who interact with this block</param>
-    private void InteractKitchenItemEntityWithFoodEntity(PlayerController player)
+    private void InteractKitchenItemEntityWithFoodEntity(PlayerController player, KitchenItemEntity kitchenItemEntity, FoodEntity foodEntity)
     {
         ItemEntity playerItem = player.CurrentItem;
-        FoodEntity foodEntity;
-        KitchenItemEntity kitchenItemEntity;
-        // Set up base variables
-        if (playerItem is KitchenItemEntity)
-        {
-            kitchenItemEntity = playerItem as KitchenItemEntity;
-            foodEntity = _itemEntity as FoodEntity;
-        }
-        else
-        {
-            kitchenItemEntity = _itemEntity as KitchenItemEntity;
-            foodEntity = playerItem as FoodEntity;
-        }
         // We try to add item to Kitchen Item if that's right return
         if (kitchenItemEntity.TryToAddItem(foodEntity))
         {
@@ -112,12 +110,53 @@ public class Table : Block
         if (playerItem is KitchenItemEntity)
         {
             Item = combinedFoodItem;
-        } else
+        } 
+        else
         {
             player.CurrentItem = combinedFoodItem;
         }
         // Clear cooked item on Kitchen Item
         kitchenItemEntity.RemoveItems();
+    }
+
+    private void InteractPlateEntityWithFoodEntity(PlayerController player, PlateEntity plateEntity, FoodEntity foodEntity)
+    {
+        bool foodEntityWasAdded = plateEntity.TryToAddItemOn(foodEntity);
+        if (!foodEntityWasAdded) return;
+
+        if (player.CurrentItem is PlateEntity)
+        {
+            Item = null;
+            player.CurrentItem = plateEntity;
+        }
+        else
+        {
+            Item = plateEntity;
+            player.CurrentItem = null;
+        }
+    }
+
+    private void InteractPlateEntityWithKitchenItemEntity(PlayerController player, PlateEntity plateEntity, KitchenItemEntity kitchenItemEntity)
+    {
+        FoodEntity cookedEntity = kitchenItemEntity.GetCookedItem();
+        if (cookedEntity == null) return;
+        cookedEntity.transform.localScale = new Vector3(1f, 1f, 1f);
+
+        bool foodEntityWasAdded = plateEntity.TryToAddItemOn(cookedEntity);
+        if (!foodEntityWasAdded) return;
+
+        kitchenItemEntity.RemoveItems(false);
+
+        if (player.CurrentItem is PlateEntity)
+        {
+            Item = kitchenItemEntity;
+            player.CurrentItem = plateEntity;
+        }
+        else
+        {
+            Item = plateEntity;
+            player.CurrentItem = kitchenItemEntity;
+        }
     }
     /// <summary>
     /// Place ItemEntity on Table via using Raycast

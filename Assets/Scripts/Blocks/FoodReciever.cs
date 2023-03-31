@@ -94,8 +94,8 @@ public class FoodReciever : Block
     public override void Interact(PlayerController player)
     {
         if (Task == null) return;
-        if (PlayerItemIsNotFoodEntity(player)) return;
-        FoodEntity playerItem = player.CurrentItem as FoodEntity;
+        if (PlayerItemIsNotPlateEntity(player)) return;
+        FoodEntity playerItem = (player.CurrentItem as PlateEntity).ItemOn;
 
         // Remove player Item if task is finished and later remove this task in TaskManager
         if (Task.Compare(playerItem))
@@ -112,10 +112,10 @@ public class FoodReciever : Block
     /// </summary>
     /// <param name="player"></param>
     /// <returns></returns>
-    private bool PlayerItemIsNotFoodEntity(PlayerController player)
+    private bool PlayerItemIsNotPlateEntity(PlayerController player)
     {
         if (player.CurrentItem == null) return true;
-        if (player.CurrentItem is not FoodEntity) return true;
+        if (player.CurrentItem is not PlateEntity) return true;
         return false;
     }
 }

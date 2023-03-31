@@ -5,6 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Food Item", menuName = "Cookix/Items/Food Item")]
 public class FoodItem : Item
 {
+    // Placing on Plate
+    public bool canBePlacedOnPlate;
+    [ConditionalField("canBePlacedOnPlate", true)]
+    public FoodItem platePrefab;
     // Sliced
     [Space(10)]
     public bool canBeSliced;

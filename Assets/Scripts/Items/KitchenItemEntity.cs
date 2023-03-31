@@ -78,12 +78,16 @@ public class KitchenItemEntity : ItemEntity
         }
         return null;
     }
-    public void RemoveItems()
+    public void RemoveItems(bool destroyItems = true)
     {
-        foreach (FoodEntity item in itemsInside) 
+        if (destroyItems)
         {
-            Destroy(item.gameObject);
+            foreach (FoodEntity item in itemsInside) 
+            {
+                Destroy(item.gameObject);
+            }
         }
+
         itemsInside = new List<FoodEntity>();
 
         cookingProgress = 0f;
