@@ -95,7 +95,12 @@ public class Table : Block
             foodEntity = playerItem as FoodEntity;
         }
         // We try to add item to Kitchen Item if that's right return
-        if (kitchenItemEntity.TryToAddItem(foodEntity)) return;
+        if (kitchenItemEntity.TryToAddItem(foodEntity))
+        {
+            // If ingredient was added set player CurrentItem to null and set animation to Idle
+            if (playerItem is not KitchenItemEntity) player.CurrentItem = null;
+            return;
+        }
         // Try to get cooked item from Kitchen Item and if it has it then continue
         FoodEntity cookedEntity = kitchenItemEntity.GetCookedItem();
         if (cookedEntity == null) return;

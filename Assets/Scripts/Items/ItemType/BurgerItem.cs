@@ -42,7 +42,7 @@ public class BurgerItem : FoodItem
         Destroy(baseFoodItem.gameObject);
         Destroy(combineFoodItem.gameObject);
         // Create Grid and Generate Icon for Bun 
-        GameObject grid = Instantiate<GameObject>(Content.Instance.FoodItemGridUI);
+        GameObject grid = Instantiate(Content.Instance.FoodItemGridUI);
         GameObject bunIcon = GenerateIcon();
         bunIcon.transform.SetParent(grid.transform);
         // Generate Icons for Added Items and insert them into grid

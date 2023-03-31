@@ -56,16 +56,18 @@ public class PlayerController : MonoBehaviour
         get 
         { 
             return _currentItem; 
-        } 
-        set 
+        }
+        set
         {
             _currentItem = value;
-            _animator.SetBool("HasAnItem", false);
-            if (_currentItem == null) return;
-            _animator.SetBool("HasAnItem", true);
-            _currentItem.transform.parent = ItemHolder.transform;
-            _currentItem.transform.position = ItemHolder.transform.position;
-            _currentItem = value;
+            bool hasItem = _currentItem != null;
+            _animator.SetBool("HasAnItem", hasItem);
+            print(CurrentItem + " : " + hasItem);
+            if (hasItem)
+            {
+                _currentItem.transform.parent = ItemHolder.transform;
+                _currentItem.transform.position = ItemHolder.transform.position;
+            }
         } 
     }
     
@@ -76,8 +78,8 @@ public class PlayerController : MonoBehaviour
     {
         if (_currentItem != null)
         {
-            _animator.SetBool("HasAnItem", false);
             Destroy(_currentItem.gameObject);
+            CurrentItem = null;
         }
     }
     private void Start()
@@ -94,8 +96,6 @@ public class PlayerController : MonoBehaviour
         _ray = new Ray();
         // Find another Children
         _eyes = transform.Find("eyes").gameObject;
-        print(transform.Find("hand-left"));
-        print(transform.Find("hand-left").Find("knife"));
         _knife = transform.Find("hand-left").Find("knife").gameObject;
         _knife.SetActive(false);
         ItemHolder = transform.Find("itemHolder");
