@@ -52,19 +52,29 @@ public class CookingStove : Table
             }
         };
     }
-
+    /// <summary>
+    /// Check Item Entity if it exist and is an Kitchen Item Entity and return casted Item Entity
+    /// If object isn't KitchenItemEntity return null
+    /// </summary>
+    /// <param name="item">Item for check and cast to KitchenItemEntity</param>
+    /// <returns></returns>
     private KitchenItemEntity CheckAndGetKitchenItemEntity(ItemEntity item)
     {
         if (_itemEntity == null) return null;
         if (_itemEntity is not KitchenItemEntity) return null;
         return _itemEntity as KitchenItemEntity;
     }
-
+    /// <summary>
+    /// Create an Item
+    /// </summary>
+    /// <param name="Instance"></param>
     private void SpawnKitchenItemEntity(KitchenItem Instance)
     {
         Item = Instance.Create();
     }
-
+    /// <summary>
+    /// Spawn HUD which is a part of cooking progress bar
+    /// </summary>
     private void SpawnHUD()
     {
         hud = Instantiate(Content.Instance.CookProgressBar);

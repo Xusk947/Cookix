@@ -4,11 +4,26 @@ using UnityEngine;
 
 public class FoodReciever : Block
 {
+    /// <summary>
+    /// A variable for _timer which provide a Time for all recievers
+    /// </summary>
     private const float _TIME = 5f;
+    /// <summary>
+    /// current Food Task
+    /// </summary>
     private FoodTask _task;
+    /// <summary>
+    /// GameObject of UIHolder which automaticlly create a Grid of ingredients for a Tasks
+    /// </summary>
     private FoodTaskImage UIHolder;
+    /// <summary>
+    /// When timer is gone take a Task from TaskManager
+    /// </summary>
     private float _timer;
-
+    /// <summary>
+    /// Current block Task, when set a new one it's create a Grid of ingredients and add UIHolder if doens't exist 
+    /// When seted to null Destory UIHolder
+    /// </summary>
     public FoodTask Task { 
         get 
         {
@@ -64,7 +79,8 @@ public class FoodReciever : Block
             }
             return;
         }
-            foreach (PlayerController player in PlayerController.players)
+        // For each player on the map try to scale up when any player close to this block
+        foreach (PlayerController player in PlayerController.players)
         {
             float distance = Vector3.Distance(player.transform.position, this.transform.position);
             if (distance < 2.5f && distance > 2f)
@@ -91,7 +107,11 @@ public class FoodReciever : Block
             player.RemoveItem();
         }
     }
-
+    /// <summary>
+    /// Check player current item for food entity class
+    /// </summary>
+    /// <param name="player"></param>
+    /// <returns></returns>
     private bool PlayerItemIsNotFoodEntity(PlayerController player)
     {
         if (player.CurrentItem == null) return true;

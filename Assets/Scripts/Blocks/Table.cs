@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class Table : Block
 {
+    /// <summary>
+    /// Item Entity on the table
+    /// </summary>
     protected ItemEntity _itemEntity;
+    /// <summary>
+    /// Item on the table, when set a new variable it's automaticlly place on it
+    /// </summary>
     public ItemEntity Item
     {
         get 
@@ -50,7 +56,11 @@ public class Table : Block
             }
         }
     }
-
+    /// <summary>
+    /// Combine FoodEntity on the table with another one from other holder
+    /// If it can Combine
+    /// </summary>
+    /// <param name="playerItem">Item which will combined with another one</param>
     private void InteractFoodEntities(FoodEntity playerItem)
     {
         // Convert ItemEntity to FoodItem
@@ -64,7 +74,10 @@ public class Table : Block
             Item = combinedFoodItem;
         }
     }
-
+    /// <summary>
+    /// Interact Kitchen Item with Food Entity
+    /// </summary>
+    /// <param name="player">who interact with this block</param>
     private void InteractKitchenItemEntityWithFoodEntity(PlayerController player)
     {
         ItemEntity playerItem = player.CurrentItem;
@@ -101,7 +114,10 @@ public class Table : Block
         // Clear cooked item on Kitchen Item
         kitchenItemEntity.RemoveItems();
     }
-
+    /// <summary>
+    /// Place ItemEntity on Table via using Raycast
+    /// </summary>
+    /// <param name="item">Item will be placed on a table</param>
     protected virtual void PlaceItem(ItemEntity item)
     {
         RaycastHit hit;

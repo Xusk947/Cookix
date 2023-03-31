@@ -6,9 +6,19 @@ using UnityEngine.UI;
 
 public class SlicingTable : Table
 {
+    /// <summary>
+    /// constant for sliceTimer
+    /// </summary>
     public float SliceTime = 0.125f;
+
     // UI
+    /// <summary>
+    /// Container of progressBar
+    /// </summary>
     private GameObject _hud;
+    /// <summary>
+    /// display Slice Progress
+    /// </summary>
     private Image _progressBar;
 
     // Slice Group

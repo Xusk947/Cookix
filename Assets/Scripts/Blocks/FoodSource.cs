@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class FoodSource : Block
 {
+    /// <summary>
+    /// Item which is will be spawned each time when player interact with it
+    /// </summary>
     public FoodItem sourceItem;
 
     public override void Interact(PlayerController player)

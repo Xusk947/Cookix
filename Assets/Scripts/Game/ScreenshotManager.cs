@@ -5,9 +5,18 @@ using UnityEngine;
 
 public class ScreenshotManager : MonoBehaviour
 {
+    /// <summary>
+    /// Use for easy indetify generated Sprites
+    /// </summary>
     private static String DEFAULT_SPRITE_NAME = "G";
     public static ScreenshotManager Instance { get; private set; }
+    /// <summary>
+    /// Camera which used for taking screenshots
+    /// </summary>
     private Camera _screenshotCamera;
+    /// <summary>
+    /// GameObject where objects spawn and been captured
+    /// </summary>
     private GameObject _itemHolder;
 
     public void Awake()
