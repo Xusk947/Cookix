@@ -127,13 +127,15 @@ public class ClientController : Controller
 
     protected void FindFoodReciever()
     {
-        foreach(FoodReciever foodReciever in GameManager.Instance.Recievers)
+        ArrayUtils.Shuffle(GameManager.Instance.Recievers);
+
+        foreach (FoodReciever foodReciever in GameManager.Instance.Recievers)
         {
             if (!foodReciever.isEmpty) continue;
             _targetFoodReciever = foodReciever;
             _targetFoodReciever.isEmpty = false;
 
-            Target = foodReciever.transform.position + foodReciever.transform.forward;
+            Target = foodReciever.GetPositionForClient();
             _agent.SetDestination(Target);
 
             _state = State.GoToReciever;

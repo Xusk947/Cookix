@@ -22,6 +22,8 @@ public class FoodReciever : Block
     private float _minScale = 0.5f;
     private float _maxScale = 1f;
     private float _targetScale = 1f;
+    [SerializeField]
+    private float _angleToStay = 0f;
     public FoodTask Task { 
         get 
         {
@@ -128,10 +130,18 @@ public class FoodReciever : Block
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
-        Vector3 pos;
-
-        pos = transform.position + transform.forward;
+        Vector3 pos = GetPositionForClient();
 
         Gizmos.DrawWireSphere(pos, 0.2f);
+    }
+
+    public Vector3 GetPositionForClient()
+    {
+        return transform.position + RotateForward(transform, _angleToStay);
+    }
+    private static Vector3 RotateForward(Transform transform, float angle)
+    {
+        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up);
+        return rotation * transform.forward;
     }
 }
