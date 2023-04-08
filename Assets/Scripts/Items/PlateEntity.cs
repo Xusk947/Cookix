@@ -60,6 +60,6 @@ public class PlateEntity : ItemEntity
         }
 
         _itemOn.transform.SetParent(transform);
-        _itemOn.transform.localPosition = new Vector3(0, 0, 0.01f);
+        _itemOn.transform.localPosition = new Vector3(0, 0.075f, 0);
     }
 }

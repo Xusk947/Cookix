@@ -9,7 +9,7 @@ public class FoodSource : Block
     /// </summary>
     public FoodItem sourceItem;
 
-    public override void Interact(PlayerController player)
+    public override void Interact(ChefController player)
     {
         // Check if player has an ItemEntity
         if (player.CurrentItem == null)

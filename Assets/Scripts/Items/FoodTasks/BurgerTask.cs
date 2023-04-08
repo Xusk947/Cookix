@@ -11,6 +11,7 @@ public class BurgerTask : FoodTask
 
     public override bool Compare(FoodEntity item)
     {
+        if (item == null) return false;
         // Check if Item equal to main item
         if (item.item != _foodItem) return false;
         // Check for count of list in item and if it size equal to task list

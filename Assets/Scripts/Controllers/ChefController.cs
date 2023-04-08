@@ -1,76 +1,59 @@
-﻿using System;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class PlayerController : MonoBehaviour
+public abstract class ChefController : Controller
 {
-    public static List<PlayerController> players = new List<PlayerController>();
 
-    // Base variables
-    private bool _isSlicing;
     /// <summary>
     /// Use for animation state
     /// </summary>
-    public bool IsSlicing
-    {
-        get { return _isSlicing; }
-        set
-        {
-            _isSlicing = value;
-            _knife.SetActive(value);
-            _animator.SetBool("IsSlicing", value);
-        }
-    }
+    protected bool _isSlicing;
 
-    private GameInput _gameInput;
-    private Rigidbody _rigidBody;
-    private CharacterController _characterController;
-    private Animator _animator;
     // Raycast
     private float _raycastDistance = 4f;
     private Ray _ray;
     private GameObject _eyes;
     private int _collisionLayers = (1 << 8);
 
-    // Children
+    // Items on Hands
     public Transform ItemHolder { get; private set; }
     /// <summary>
     /// Prefab of knife, use in Slice animation
     /// </summary>
-    private GameObject _knife;
+    protected GameObject _knife;
     /// <summary>
     /// Item which player hold in current time
     /// </summary>
-    private ItemEntity _currentItem { get; set; } 
+    protected ItemEntity _currentItem { get; set; }
     /// <summary>
     /// Block which is hovered by player Eyes
     /// </summary>
-    private Block _selectedBlock;
+    protected Block _selectedBlock;
     /// <summary>
     /// Return player item on they hand
     /// When set a new Item, remove old one and change animation state
     /// </summary>
     public ItemEntity CurrentItem
-    { 
-        get 
-        { 
-            return _currentItem; 
+    {
+        get
+        {
+            return _currentItem;
         }
         set
         {
             _currentItem = value;
             bool hasItem = _currentItem != null;
             _animator.SetBool("HasAnItem", hasItem);
-            print(CurrentItem + " : " + hasItem);
             if (hasItem)
             {
                 _currentItem.transform.parent = ItemHolder.transform;
                 _currentItem.transform.position = ItemHolder.transform.position;
             }
-        } 
+        }
     }
-    
+
     /// <summary>
     /// Remove item from player hands if it exist
     /// </summary>
@@ -82,16 +65,20 @@ public class PlayerController : MonoBehaviour
             CurrentItem = null;
         }
     }
-    private void Start()
+
+    public bool IsSlicing
     {
-        // Get base components
-        _rigidBody = GetComponent<Rigidbody>();
-        _characterController = GetComponent<CharacterController>();
-        _animator = GetComponent<Animator>();
-        // Connect Input
-        _gameInput = GameInput.Instance;
-        _gameInput.OnInteractAction += PlayerInteract;
-        _gameInput.OnSecondInteractAction += PlayerSecondInteract;
+        get { return _isSlicing; }
+        set
+        {
+            _isSlicing = value;
+            _knife.SetActive(value);
+            _animator.SetBool("IsSlicing", value);
+        }
+    }
+    protected override void Start()
+    {
+        base.Start();
         // Create a ray for cheking blocks forward the Player
         _ray = new Ray();
         // Find another Children
@@ -99,33 +86,6 @@ public class PlayerController : MonoBehaviour
         _knife = transform.Find("hand-left").Find("knife").gameObject;
         _knife.SetActive(false);
         ItemHolder = transform.Find("itemHolder");
-
-        players.Add(this);
-    }
-    /// <summary>
-    /// When player interact with block by first Interact Key, and send Event.OnKitchenBlockInteract
-    /// </summary>
-    /// <param name="sender">not used</param>
-    /// <param name="e">is null</param>
-    private void PlayerInteract(object sender, EventArgs e)
-    {
-        if (_selectedBlock != null)
-        {
-            Events.OnKitchenBlockInteract(new BlockArgs(this, _selectedBlock));
-        }
-    }
-    /// <summary>
-    /// When player interact with block by second Interact Key, send Event.OnKitchenBlockSecondInteract
-    /// Event Args sended by BoolEventArgs which transfer a press button condition
-    /// </summary>
-    /// <param name="sender">not used</param>
-    /// <param name="e">also send a holding condition when player press and release button</param>
-    private void PlayerSecondInteract(object sender, EventArgs e)
-    {
-        if (_selectedBlock != null)
-        {
-            Events.OnKitchenBlockSecondInteract(new BlockArgs(this, _selectedBlock, (e as BoolEventArgs).Condition));
-        }
     }
 
 
@@ -138,10 +98,11 @@ public class PlayerController : MonoBehaviour
     {
         UpdateMovement();
     }
+    protected abstract void UpdateMovement();
     /// <summary>
     /// Create a Ray on his Eyes and when it's collide with block set _selectedBlock to new one
     /// </summary>
-    private void UpdateInteraction()
+    protected virtual void UpdateInteraction()
     {
         _ray = new Ray(_eyes.transform.position, Vector3.down);
         RaycastHit raycastHit;
@@ -153,7 +114,8 @@ public class PlayerController : MonoBehaviour
                 if (raycastHit.transform.parent.name == "Blocks")
                 {
                     rayBlock = raycastHit.transform.gameObject.GetComponent<Block>();
-                } else
+                }
+                else
                 {
                     rayBlock = raycastHit.transform.parent.gameObject.GetComponent<Block>();
                 }
@@ -168,27 +130,43 @@ public class PlayerController : MonoBehaviour
                 _selectedBlock = rayBlock;
                 Events.OnKitchenBlockSelected(new BlockArgs(this, rayBlock));
             }
-            else if (rayBlock != _selectedBlock) 
+            else if (rayBlock != _selectedBlock)
             {
                 Events.OnKitchenBlockUnselected(new BlockArgs(this, _selectedBlock));
                 Events.OnKitchenBlockSelected(new BlockArgs(this, rayBlock));
                 _selectedBlock = rayBlock;
             }
-        } else if (_selectedBlock != null)
+        }
+        else if (_selectedBlock != null)
         {
             Events.OnKitchenBlockUnselected(new BlockArgs(this, _selectedBlock));
             _selectedBlock = null;
         }
     }
 
-    private void UpdateMovement()
+    /// <summary>
+    /// When player interact with block by first Interact Key, and send Event.OnKitchenBlockInteract
+    /// </summary>
+    /// <param name="sender">not used</param>
+    /// <param name="e">is null</param>
+    protected void ChefInteract(object sender, EventArgs e)
     {
-        Vector2 inputVector = _gameInput.GetMovementVectorNormalized();
-        Vector3 direction = new Vector3(inputVector.x, 0, inputVector.y);
-
-        Vector3 position = transform.position + direction * Time.deltaTime * 5f;
-        transform.forward = Vector3.Slerp(transform.forward, direction, Time.deltaTime * 7.5f);
-        _characterController.SimpleMove(direction * 5f);
-        _animator.SetBool("IsMoving", _characterController.velocity.magnitude > 0.1f);
+        if (_selectedBlock != null)
+        {
+            Events.OnKitchenBlockInteract(new BlockArgs(this, _selectedBlock));
+        }
+    }
+    /// <summary>
+    /// When player interact with block by second Interact Key, send Event.OnKitchenBlockSecondInteract
+    /// Event Args sended by BoolEventArgs which transfer a press button condition
+    /// </summary>
+    /// <param name="sender">not used</param>
+    /// <param name="e">also send a holding condition when player press and release button</param>
+    protected virtual void ChefSecondInteract(object sender, EventArgs e)
+    {
+        if (_selectedBlock != null)
+        {
+            Events.OnKitchenBlockSecondInteract(new BlockArgs(this, _selectedBlock, (e as BoolEventArgs).Condition));
+        }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlateHolder : Block
 {
     public PlateItem PlateToSpawn;
-    public override void Interact(PlayerController player)
+    public override void Interact(ChefController player)
     {
         if (player.CurrentItem == null)
         {
@@ -17,7 +17,7 @@ public class PlateHolder : Block
         }
     }
 
-    private void InteractWithFoodEntity(PlayerController player)
+    private void InteractWithFoodEntity(ChefController player)
     {
         FoodEntity foodEntity = player.CurrentItem as FoodEntity;
         if (!foodEntity.foodItem.canBePlacedOnPlate) return;

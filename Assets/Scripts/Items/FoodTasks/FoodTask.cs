@@ -7,6 +7,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ItemTask", menuName = "Cookix/Item Task/ItemTask")]
 public class FoodTask : ScriptableObject
 {
+    public float Score = 50f;
+    public float difficult = 1f;
     [SerializeField]
     private Sprite _icon;
     [SerializeField]
@@ -28,7 +30,6 @@ public class FoodTask : ScriptableObject
     public virtual FoodEntity GetFoodEntity()
     {
         FoodEntity entity = _foodItem.Create(false);
-
         return entity;
     }
 }

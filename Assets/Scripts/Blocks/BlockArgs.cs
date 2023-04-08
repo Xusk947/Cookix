@@ -10,7 +10,7 @@ public class BlockArgs : EventArgs
     /// <summary>
     /// a player who touch the block
     /// </summary>
-    public PlayerController PlayerController { get; set; }
+    public ChefController ChefController { get; set; }
     /// <summary>
     /// block which was touched by a Player
     /// </summary>
@@ -20,15 +20,15 @@ public class BlockArgs : EventArgs
     /// </summary>
     public bool PressCondition = false;
 
-    public BlockArgs(PlayerController playerController, Block block)
+    public BlockArgs(ChefController playerController, Block block)
     {
-        PlayerController = playerController;
+        ChefController = playerController;
         Block = block;
     }
 
-    public BlockArgs(PlayerController playerController, Block block, bool pressCondition)
+    public BlockArgs(ChefController playerController, Block block, bool pressCondition)
     {
-        PlayerController = playerController;
+        ChefController = playerController;
         Block = block;
         PressCondition = pressCondition;
     }

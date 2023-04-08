@@ -10,7 +10,6 @@ public class FoodTaskManager : MonoBehaviour
     private List<FoodTask> _foodTasks;
     private List<FoodTask> _activeTasks;
     private List<FoodTask> _takedTasks;
-    private float timer = 0f;
 
     private GameObject foodTaskHolder;
     private void Start()
@@ -20,20 +19,11 @@ public class FoodTaskManager : MonoBehaviour
         _takedTasks = new List<FoodTask>();
         CreateBaseForTasks();
     }
-
-    private void Update()
+    public FoodTask CreateTask()
     {
-        timer -= Time.deltaTime;
-        if (timer < 0f)
-        {
-            if (_foodTasks.Count < 1) return;
-            if (_activeTasks.Count + _takedTasks.Count < 3)
-            {
-                FoodTask task = GenerateTask();
-                _activeTasks.Add(task);
-            }
-            timer = 10f;
-        }
+        FoodTask task = GenerateTask();
+        _activeTasks.Add(task);
+        return task;
     }
 
     public FoodTask TakeTask()

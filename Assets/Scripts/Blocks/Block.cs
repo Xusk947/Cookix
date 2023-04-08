@@ -45,7 +45,7 @@ public abstract class Block : MonoBehaviour
     /// Use
     /// </summary>
     /// <param name="player"> is Player who interact with this block</param>
-    public virtual void Interact(PlayerController player)
+    public virtual void Interact(ChefController player)
     {
 
     }
@@ -54,7 +54,7 @@ public abstract class Block : MonoBehaviour
     /// </summary>
     /// <param name="player">who interact with this block</param>
     /// <param name="isPress">Use in Update methods to know when button is press off</param>
-    public virtual void SecondInteract(PlayerController player, bool isPress)
+    public virtual void SecondInteract(ChefController player, bool isPress)
     {
 
     }

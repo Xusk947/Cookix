@@ -24,11 +24,11 @@ public class BlockEventsHandler : MonoBehaviour
 
     private void OnKitchenBlockInteract(object sender, BlockArgs e)
     {
-        e.Block.Interact(e.PlayerController);
+        e.Block.Interact(e.ChefController);
     }
 
     private void OnKitchenBlockSecondInteract(object sender, BlockArgs e)
     {
-        e.Block.SecondInteract(e.PlayerController, e.PressCondition);
+        e.Block.SecondInteract(e.ChefController, e.PressCondition);
     }
 }

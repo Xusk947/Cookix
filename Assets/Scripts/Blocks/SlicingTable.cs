@@ -26,11 +26,13 @@ public class SlicingTable : Table
     private bool _isSlicing = false;
     private float _sliceProgress = 0f;
     private float _sliceTimer = 0f;
+    [SerializeField]
+    private float _sliceSpeed = 0.1f;
     /// <summary>
     /// Player who slicing on this block
     /// At the same time only 1 player can slice Items
     /// </summary>
-    private PlayerController _player;
+    private ChefController _player;
 
     protected new void Start()
     {
@@ -54,13 +56,13 @@ public class SlicingTable : Table
         }
     }
 
-    public override void Interact(PlayerController player)
+    public override void Interact(ChefController player)
     {
         if (_sliceProgress > 0f) return;
         base.Interact(player);
     }
 
-    public override void SecondInteract(PlayerController player, bool isPress)
+    public override void SecondInteract(ChefController player, bool isPress)
     {
         if (_itemEntity == null) return;
         if (_itemEntity is not FoodEntity) return;
@@ -103,7 +105,7 @@ public class SlicingTable : Table
     private void Slice()
     {
         _sliceTimer = SliceTime;
-        _sliceProgress += 0.1f;
+        _sliceProgress += _sliceSpeed * GameManager.Instance.rules.SlicingTableSliceSpeedMultiplayer;
         _progressBar.fillAmount = _sliceProgress;
         _hud.SetActive(true);
         _knife.SetActive(false);

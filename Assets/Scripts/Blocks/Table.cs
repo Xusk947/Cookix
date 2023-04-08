@@ -24,7 +24,7 @@ public class Table : Block
             PlaceItem(_itemEntity);
         }
     }
-    public override void Interact(PlayerController player)
+    public override void Interact(ChefController player)
     {
         if (_itemEntity == null && player.CurrentItem != null)
         {
@@ -54,12 +54,12 @@ public class Table : Block
             }
         }
     }
-    private void TakeItemFromPlayer(PlayerController player)
+    private void TakeItemFromPlayer(ChefController player)
     {
         Item = player.CurrentItem;
         player.CurrentItem = null;
     }
-    private void GivePlayerItemFromTable(PlayerController player)
+    private void GivePlayerItemFromTable(ChefController player)
     {
         player.CurrentItem = _itemEntity;
         _itemEntity = null;
@@ -70,7 +70,7 @@ public class Table : Block
     /// If it can Combine
     /// </summary>
     /// <param name="playerItem">Item which will combined with another one</param>
-    private void InteractFoodEntities(PlayerController player, FoodEntity playerItem)
+    private void InteractFoodEntities(ChefController player, FoodEntity playerItem)
     {
         // Convert ItemEntity to FoodItem
         FoodEntity foodEntity = _itemEntity as FoodEntity;
@@ -89,7 +89,7 @@ public class Table : Block
     /// Interact Kitchen Item with Food Entity
     /// </summary>
     /// <param name="player">who interact with this block</param>
-    private void InteractKitchenItemEntityWithFoodEntity(PlayerController player, KitchenItemEntity kitchenItemEntity, FoodEntity foodEntity)
+    private void InteractKitchenItemEntityWithFoodEntity(ChefController player, KitchenItemEntity kitchenItemEntity, FoodEntity foodEntity)
     {
         ItemEntity playerItem = player.CurrentItem;
         // We try to add item to Kitchen Item if that's right return
@@ -119,7 +119,7 @@ public class Table : Block
         kitchenItemEntity.RemoveItems();
     }
 
-    private void InteractPlateEntityWithFoodEntity(PlayerController player, PlateEntity plateEntity, FoodEntity foodEntity)
+    private void InteractPlateEntityWithFoodEntity(ChefController player, PlateEntity plateEntity, FoodEntity foodEntity)
     {
         bool foodEntityWasAdded = plateEntity.TryToAddItemOn(foodEntity);
         if (!foodEntityWasAdded) return;
@@ -136,7 +136,7 @@ public class Table : Block
         }
     }
 
-    private void InteractPlateEntityWithKitchenItemEntity(PlayerController player, PlateEntity plateEntity, KitchenItemEntity kitchenItemEntity)
+    private void InteractPlateEntityWithKitchenItemEntity(ChefController player, PlateEntity plateEntity, KitchenItemEntity kitchenItemEntity)
     {
         FoodEntity cookedEntity = kitchenItemEntity.GetCookedItem();
         if (cookedEntity == null) return;

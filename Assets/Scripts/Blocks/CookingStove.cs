@@ -12,10 +12,6 @@ public class CookingStove : Table
     /// </summary>
     public KitchenItem ItemToSpawn;
     /// <summary>
-    /// speed with in block will cook items on it
-    /// </summary>
-    public float cookSpeed = .5f;
-    /// <summary>
     /// is a GameObject of Cooking Process and Warning Sign Info
     /// </summary>
     private GameObject hud;
@@ -23,6 +19,10 @@ public class CookingStove : Table
     /// using to display current cook progress
     /// </summary>
     private Image progressBar;
+    /// <summary>
+    /// speed with in block will cook items on it
+    /// </summary>
+    private float _cookSpeed = .5f;
     protected new void Start()
     {
         base.Start();
@@ -44,7 +44,7 @@ public class CookingStove : Table
         if (kitchenItemEntity.CanCook())
         {
             hud.SetActive(true);
-            kitchenItemEntity.cookingProgress += Time.deltaTime * cookSpeed;
+            kitchenItemEntity.cookingProgress += Time.deltaTime * _cookSpeed * GameManager.Instance.rules.CookingStoveCookSpeedMultiplayer;
             progressBar.fillAmount = kitchenItemEntity.cookingProgress;
             if (kitchenItemEntity.cookingProgress > 1.0f)
             {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TrashCan : Block
 {
-    public override void Interact(PlayerController player)
+    public override void Interact(ChefController player)
     {
         if (player.CurrentItem == null) return;
         switch(player.CurrentItem)
