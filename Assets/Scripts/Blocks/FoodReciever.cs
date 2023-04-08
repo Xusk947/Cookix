@@ -76,8 +76,16 @@ public class FoodReciever : Block
                 continue;
             }
         }
-        float scale = Mathf.Lerp(UIHolder.transform.localScale.x, _targetScale, Time.deltaTime * 2.5f);
-        UIHolder.transform.localScale = new Vector3(scale, scale, scale);
+        if (Client != null)
+        {
+            UIHolder.UpdateBackground(Client.WaitTimer / Client.WaitTime);
+
+            float scale = Mathf.Lerp(UIHolder.transform.localScale.x, _targetScale, Time.deltaTime * 2.5f);
+            UIHolder.transform.localScale = new Vector3(scale, scale, scale);
+        } else
+        {
+            FailTask();
+        }
     }
     public override void Interact(ChefController player)
     {
@@ -95,6 +103,14 @@ public class FoodReciever : Block
             iconHide.transform.position = transform.position + Vector3.up;
             player.RemoveItem();
         }
+    }
+
+    private void FailTask()
+    {
+        FoodTaskManager.Instance.RemoveTask(Task);
+        Task = null;
+        IconHide iconHide = Instantiate(Content.Instance.IconCancel);
+        iconHide.transform.position = transform.position + Vector3.up;
     }
 
     /// <summary>

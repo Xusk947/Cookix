@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class FoodTaskImage : MonoBehaviour
 {
+    [SerializeField]
+    private Gradient _gradient;
     private GridLayoutGroup _ingredientsGridLayoutGroup;
     private Image _foodTaskBackgroundImage;
     private Image _foodTaskImage;
@@ -19,8 +21,10 @@ public class FoodTaskImage : MonoBehaviour
 
     }
 
-    private void Update()
+    public void UpdateBackground(float value)
     {
+        _foodTaskBackgroundImage.fillAmount = value;
+        _foodTaskBackgroundImage.color = _gradient.Evaluate(value);
     }
 
     public void CreateFromTask(FoodTask task)

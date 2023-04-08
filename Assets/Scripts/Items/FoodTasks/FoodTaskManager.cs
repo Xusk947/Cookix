@@ -36,7 +36,12 @@ public class FoodTaskManager : MonoBehaviour
     }
     private FoodTask GenerateTask()
     {
-        return _foodTasks[Random.Range(0, _foodTasks.Count)];
+        RouletteWheelSelection<FoodTask> wheel = new RouletteWheelSelection<FoodTask>();
+        foreach(FoodTask task in _foodTasks)
+        {
+            wheel.Add(task, task.difficult);
+        }
+        return wheel.Spin();
     }
 
     public FoodTask CheckItemForTask(FoodEntity foodEntity)

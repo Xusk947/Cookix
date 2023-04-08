@@ -6,7 +6,8 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class ClientController : Controller
 {
-
+    public float WaitTime { get; private set; } = 60f;
+    public float WaitTimer { get; private set; } = 0f;
     private float _thinkTime = 3f;
     private FoodReciever _targetFoodReciever;
 
@@ -66,6 +67,9 @@ public class ClientController : Controller
             case State.WaitAnOrder:
                 WaitAnOrder();
                 break;
+            case State.Angry:
+                Angry();
+                break;
             case State.OutFromReciever:
                 GoToExit();
                 break;
@@ -91,14 +95,30 @@ public class ClientController : Controller
         FoodTaskManager.Instance.CreateTask();
         _targetFoodReciever.Task = FoodTaskManager.Instance.TakeTask();
         _targetFoodReciever.Client = this;
+
+        WaitTime *= _targetFoodReciever.Task.difficult * GameManager.Instance.rules.ClientWaitTimeMultiplayer;
+        WaitTimer = WaitTime;
+
         _state = State.WaitAnOrder;
     }
 
     private void WaitAnOrder()
     {
-
+        WaitTimer -= Time.deltaTime;
+        if (WaitTimer < 0) _state = State.Angry;
     }
+    
+    private void Angry()
+    {
+        _targetFoodReciever.isEmpty = true;
+        _targetFoodReciever.Client = null;
+        _targetFoodReciever = null;
 
+        Target = GameManager.Instance.clienExit.transform.position;
+        _agent.SetDestination(Target);
+
+        _state = State.OutFromReciever;
+    }
     private void GoToExit()
     {
         if (_agent.remainingDistance > 1) return;
@@ -144,7 +164,7 @@ public class ClientController : Controller
 
     public enum State
     {
-        Idle, GoToReciever, Thinking, TakeAnOrder, WaitAnOrder, OutFromReciever
+        Idle, GoToReciever, Thinking, TakeAnOrder, WaitAnOrder, OutFromReciever, Angry
     }
 
     private void ChangeClothColor()

@@ -18,7 +18,6 @@ public class PlateEntity : ItemEntity
 
     public bool TryToAddItemOn(FoodEntity foodEntity)
     {
-        print(foodEntity + " : " + _itemOn);
         if (foodEntity == null) return false;
 
         if (_itemOn != null)
