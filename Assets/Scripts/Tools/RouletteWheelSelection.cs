@@ -40,12 +40,12 @@ public class RouletteWheelSelection<T>
         return default(T);
     }
 
-    private class RouletteElement<T>
+    private class RouletteElement<U>
     {
-        public T item;
+        public U item;
         public float weight;
 
-        public RouletteElement(T item, float weight)
+        public RouletteElement(U item, float weight)
         {
             this.item = item;
             this.weight = weight;

@@ -19,6 +19,8 @@ public class FoodItem : Item
     public bool canBeFried;
     [ConditionalField("canBeFried", true)]
     public FoodItem friedPrefab;
+    [ConditionalField("canBeFried", true)]
+    public bool itIsABurntPrefab;
     // Boiling
     [Space(10)]
     public bool canBeBoiled;

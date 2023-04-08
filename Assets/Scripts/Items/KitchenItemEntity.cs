@@ -7,15 +7,15 @@ public class KitchenItemEntity : ItemEntity
     /// <summary>
     /// Progress of cook, from 0 to 1
     /// </summary>
-    public float cookingProgress = 0f;
+    public float CookingProgress = 0f;
     /// <summary>
     /// when food on it is done
     /// </summary>
-    public bool isCooked;
+    public bool IsCooked;
     /// <summary>
     /// List of items inside which was added to it
     /// </summary>
-    private List<FoodEntity> itemsInside = new List<FoodEntity>();
+    private List<FoodEntity> _itemsInside = new List<FoodEntity>();
     
     /// <summary>
     /// Can uese this Item for cooking
@@ -23,8 +23,8 @@ public class KitchenItemEntity : ItemEntity
     /// <returns>check count of items inside and Cook Type of each item</returns>
     public bool CanCook()
     {
-        if (itemsInside.Count <= 0) return false;
-        foreach (FoodEntity item in itemsInside)
+        if (_itemsInside.Count <= 0) return false;
+        foreach (FoodEntity item in _itemsInside)
         {
             if (!CanUse(item.foodItem)) return false;
         }
@@ -44,6 +44,15 @@ public class KitchenItemEntity : ItemEntity
         }
         return false;
     }
+
+    public bool ItemIsBurning()
+    {
+        foreach(FoodEntity item in _itemsInside)
+        {
+            if (item.foodItem.itIsABurntPrefab) return true;
+        }
+        return false;
+    }
     protected void AddItem(FoodEntity item)
     {
         item.transform.SetParent(transform);
@@ -53,28 +62,28 @@ public class KitchenItemEntity : ItemEntity
         newFoodEntity.transform.localPosition = new Vector3(0, 0, 0);
         newFoodEntity.transform.localScale = newFoodEntity.transform.localScale * 0.8f;
         // Then add item from Holder to it self, and destroy this item in Holder
-        itemsInside.Add(newFoodEntity);
+        _itemsInside.Add(newFoodEntity);
         Destroy(item.gameObject);
 
         UpdateItemsPosition();
 
-        Mathf.Clamp(cookingProgress, 0f, cookingProgress - 0.25f);
+        Mathf.Clamp(CookingProgress, 0f, CookingProgress - 0.25f);
     }
 
     public void CookItemsInside()
     {
-        FoodItem outputItem = GetPrefabFromItem(itemsInside[0].foodItem);
+        FoodItem outputItem = GetPrefabFromItem(_itemsInside[0].foodItem);
 
         RemoveItems();
         AddItem(outputItem.Create());
-        isCooked = true;
+        IsCooked = true;
     }
 
     public FoodEntity GetCookedItem()
     {
-        if (itemsInside.Capacity > 0 && isCooked)
+        if (_itemsInside.Capacity > 0 && IsCooked)
         {
-            return itemsInside[0];
+            return _itemsInside[0];
         }
         return null;
     }
@@ -82,22 +91,22 @@ public class KitchenItemEntity : ItemEntity
     {
         if (destroyItems)
         {
-            foreach (FoodEntity item in itemsInside) 
+            foreach (FoodEntity item in _itemsInside) 
             {
                 Destroy(item.gameObject);
             }
         }
 
-        itemsInside = new List<FoodEntity>();
+        _itemsInside = new List<FoodEntity>();
 
-        cookingProgress = 0f;
-        isCooked = false;
+        CookingProgress = 0f;
+        IsCooked = false;
     }
 
     private void UpdateItemsPosition()
     {
         float lastHeight = 0f;
-        foreach (FoodEntity item in itemsInside)
+        foreach (FoodEntity item in _itemsInside)
         {
             // Place each item on top of it by Using Mesh Renderer bounds.size.y
             item.transform.localPosition = new Vector3(0, 0, 0.01f);
@@ -113,7 +122,7 @@ public class KitchenItemEntity : ItemEntity
 
     protected bool CanAddItem(FoodEntity item)
     {
-        if (itemsInside.Count >= kitchenItem.maxHoldItems) return false;
+        if (_itemsInside.Count >= kitchenItem.maxHoldItems) return false;
         return CanUse(item.foodItem);
     }
     /// <summary>

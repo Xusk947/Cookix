@@ -15,6 +15,7 @@ public class CookingStove : Table
     /// is a GameObject of Cooking Process and Warning Sign Info
     /// </summary>
     private GameObject hud;
+    private Animator warningHud;
     /// <summary>
     /// using to display current cook progress
     /// </summary>
@@ -36,21 +37,43 @@ public class CookingStove : Table
     }
     void Update()
     {
-        // Hide HUD by default and check for _itemEntity on it
-        hud.SetActive(false);
         // Check item for null and default class and later cast to a Kitchen ItemEntity
         KitchenItemEntity kitchenItemEntity = CheckAndGetKitchenItemEntity(_itemEntity);
-        if (kitchenItemEntity == null) return;
-        if (kitchenItemEntity.CanCook())
+        if (kitchenItemEntity == null || !kitchenItemEntity.CanCook())
         {
-            hud.SetActive(true);
-            kitchenItemEntity.cookingProgress += Time.deltaTime * _cookSpeed * GameManager.Instance.rules.CookingStoveCookSpeedMultiplayer;
-            progressBar.fillAmount = kitchenItemEntity.cookingProgress;
-            if (kitchenItemEntity.cookingProgress > 1.0f)
-            {
-                kitchenItemEntity.CookItemsInside();
-            }
+            warningHud.gameObject.SetActive(false);
+            hud.SetActive(false);
+            return;
         };
+        if (kitchenItemEntity.ItemIsBurning())
+        {
+            UpdateBurntState(kitchenItemEntity);
+        }
+        else
+        {
+            UpdateCookState(kitchenItemEntity);
+        }
+        
+        progressBar.fillAmount = kitchenItemEntity.CookingProgress;
+        if (kitchenItemEntity.CookingProgress > 1.0f)
+        {
+            kitchenItemEntity.CookItemsInside();
+        }
+    }
+
+    private void UpdateBurntState(KitchenItemEntity kitchenItemEntity)
+    {
+        kitchenItemEntity.CookingProgress += Time.deltaTime * _cookSpeed * GameManager.Instance.rules.FoodItemBurningSpeed * GameManager.Instance.rules.CookingStoveCookSpeedMultiplayer;
+        warningHud.gameObject.SetActive(true);
+        warningHud.SetFloat("BlinkSpeed", 1f + kitchenItemEntity.CookingProgress * 5f);
+        hud.SetActive(false);
+    }
+
+    private void UpdateCookState(KitchenItemEntity kitchenItemEntity)
+    {
+        kitchenItemEntity.CookingProgress += Time.deltaTime * _cookSpeed * GameManager.Instance.rules.CookingStoveCookSpeedMultiplayer;
+        hud.SetActive(true);
+        warningHud.gameObject.SetActive(false);
     }
     /// <summary>
     /// Check Item Entity if it exist and is an Kitchen Item Entity and return casted Item Entity
@@ -83,5 +106,10 @@ public class CookingStove : Table
         progressBar = hud.transform.GetChild(1).GetComponent<Image>();
         progressBar.fillAmount = 0;
         hud.SetActive(false);
+
+        warningHud = Instantiate(Content.Instance.WarningIcon);
+        warningHud.transform.SetParent(transform);
+        warningHud.transform.localPosition = new Vector3(0, 1.2f, 0.02f);
+        warningHud.gameObject.SetActive(false);
     }
 }

@@ -29,6 +29,10 @@ public class Rules
     /// How fast Cooking Stove cook items in it
     /// </summary>
     public float CookingStoveCookSpeedMultiplayer = 1.0f;
+    /// <summary>
+    /// How fast Items which is cooking will Burnt
+    /// </summary>
+    public float FoodItemBurningSpeed = 0.1f;  
 
     public Rules()
     {

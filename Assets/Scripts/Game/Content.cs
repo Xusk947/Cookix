@@ -6,8 +6,10 @@ using UnityEngine;
 [InitializeOnLoad]
 public class Content : MonoBehaviour
 {
-    // GUI for FoodItems
     public static Content Instance { get; private set; }
+    // Materials
+    public Material Burnt;
+    // GUI for FoodItems
     // Food Zone
     [HideInInspector]
     public GameObject FoodItemUI;
@@ -22,11 +24,14 @@ public class Content : MonoBehaviour
     public GameObject CookProgressBar;
     // Icons 
     public IconHide IconCancel, IconAccept;
+    public Animator WarningIcon;
     // Sprites
     [HideInInspector]
     public Sprite Pixel1x1;
     public void Load()
     {
+        Burnt = Resources.Load<Material>("Models/Items/Food/Material/Burnt");
+
         FoodItemUI = Resources.Load<GameObject>("Models/Prefabs/UI/FoodItemUI");
         FoodItemGridUI = Resources.Load<GameObject>("Models/Prefabs/UI/FoodItemGridUI");
         FoodTaskUI = Resources.Load<FoodTaskImage>("Models/Prefabs/UI/FoodTaskUI");
@@ -38,6 +43,7 @@ public class Content : MonoBehaviour
 
         IconCancel = Resources.Load<IconHide>("Models/Prefabs/UI/CancelIcon");
         IconAccept = Resources.Load<IconHide>("Models/Prefabs/UI/AcceptIcon");
+        WarningIcon = Resources.Load<Animator>("Models/Prefabs/UI/WarningIcon");
 
         Instance = this;
     }

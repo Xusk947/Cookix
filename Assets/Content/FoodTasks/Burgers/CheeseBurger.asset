@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f93aa5cea6949e47b0b64179420821d, type: 3}
   m_Name: CheeseBurger
   m_EditorClassIdentifier: 
+  Score: 50
+  difficult: 0.75
   _icon: {fileID: 0}
   _foodItem: {fileID: 11400000, guid: f66659749dda4014a9008c74534e81cf, type: 2}
   foodItems:
