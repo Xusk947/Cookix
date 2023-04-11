@@ -6,6 +6,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class ClientController : Controller
 {
+    public static List<ClientController> CLIENTS = new List<ClientController>();
     public float WaitTime { get; private set; } = 60f;
     public float WaitTimer { get; private set; } = 0f;
     private float _thinkTime = 3f;
@@ -45,6 +46,8 @@ public class ClientController : Controller
         ChangeSkinColor();
 
         _thinkTime += Random.Range(-2.5f, 2.5f);
+
+        CLIENTS.Add(this);
     }
 
     protected void Update()
@@ -183,6 +186,11 @@ public class ClientController : Controller
         Color skinColor = new Color(r, g, b);
         _handLeft.material.color = skinColor;
         _handRight.material.color = skinColor;
-        _head.material.color = skinColor; 
+        _head.material.color = skinColor;
+    }
+
+    private void OnDestroy()
+    {
+        CLIENTS.Remove(this);
     }
 }
