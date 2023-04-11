@@ -13,6 +13,10 @@ public class KitchenItemEntity : ItemEntity
     /// </summary>
     public bool IsCooked;
     /// <summary>
+    /// when food item is burnt
+    /// </summary>
+    public bool IsBurnt;
+    /// <summary>
     /// List of items inside which was added to it
     /// </summary>
     private List<FoodEntity> _itemsInside = new List<FoodEntity>();
@@ -73,6 +77,8 @@ public class KitchenItemEntity : ItemEntity
     public void CookItemsInside()
     {
         FoodItem outputItem = GetPrefabFromItem(_itemsInside[0].foodItem);
+
+        IsBurnt = ItemIsBurning();
 
         RemoveItems();
         AddItem(outputItem.Create());

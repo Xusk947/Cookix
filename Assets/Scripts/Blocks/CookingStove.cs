@@ -59,14 +59,23 @@ public class CookingStove : Table
         if (kitchenItemEntity.CookingProgress > 1.0f)
         {
             kitchenItemEntity.CookItemsInside();
+            if (!kitchenItemEntity.IsBurnt)
+            {
+                IconHide iconHide = Instantiate(Content.Instance.IconAccept);
+                iconHide.transform.localScale *= 0.8f;
+                iconHide.transform.position = transform.position + Vector3.up;
+            }
         }
     }
 
     private void UpdateBurntState(KitchenItemEntity kitchenItemEntity)
     {
         kitchenItemEntity.CookingProgress += Time.deltaTime * _cookSpeed * GameManager.Instance.rules.FoodItemBurningSpeed * GameManager.Instance.rules.CookingStoveCookSpeedMultiplayer;
-        warningHud.gameObject.SetActive(true);
-        warningHud.SetFloat("BlinkSpeed", 1f + kitchenItemEntity.CookingProgress * 5f);
+        if (kitchenItemEntity.CookingProgress > 0.25f)
+        {
+            warningHud.gameObject.SetActive(true);
+        }
+        warningHud.SetFloat("BlinkSpeed", 1.25f + kitchenItemEntity.CookingProgress * 5f);
         hud.SetActive(false);
     }
 
