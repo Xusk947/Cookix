@@ -32,7 +32,7 @@ public class Rules
     /// <summary>
     /// How fast Items which is cooking will Burnt
     /// </summary>
-    public float FoodItemBurningSpeed = 0.1f;  
+    public float FoodItemBurningSpeed = 0.75f;  
 
     public Rules()
     {

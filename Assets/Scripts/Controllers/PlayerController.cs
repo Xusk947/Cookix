@@ -8,7 +8,6 @@ public class PlayerController : ChefController
     public static List<PlayerController> players = new List<PlayerController>();
 
     private GameInput _gameInput;
-
     private CharacterController _characterController;
 
     protected override void Start()
@@ -34,6 +33,7 @@ public class PlayerController : ChefController
         Vector3 position = transform.position + direction * Time.deltaTime * 5f;
         transform.forward = Vector3.Slerp(transform.forward, direction, Time.deltaTime * 7.5f);
         _characterController.SimpleMove(direction * 5f);
-        _animator.SetBool("IsMoving", _characterController.velocity.magnitude > 0.1f);
+        bool isMoving = _characterController.velocity.magnitude > 0.1f;
+        _animator.SetBool("IsMoving", isMoving);
     }
 }

@@ -112,6 +112,7 @@ public class ClientController : Controller
     {
         _targetFoodReciever.isEmpty = true;
         _targetFoodReciever.Client = null;
+        _targetFoodReciever.CancelOrder();
         _targetFoodReciever = null;
 
         Target = GameManager.Instance.clienExit.transform.position;

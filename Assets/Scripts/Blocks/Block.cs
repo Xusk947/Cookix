@@ -19,7 +19,7 @@ public abstract class Block : MonoBehaviour
     /// color when block is hovered by player
     /// </summary>
     [HideInInspector] private List<Color> _smoothColor;
-    protected void Start()
+    protected virtual void Start()
     {
         if (transform.childCount > 0)
         {

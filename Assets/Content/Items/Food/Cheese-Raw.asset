@@ -12,11 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bed386447a3bf9419f60ac44bcc5d70, type: 3}
   m_Name: Cheese-Raw
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 919132149155446097, guid: 33e5e73a251d9474db7e3faec2a607f4, type: 3}
+  Prefab: {fileID: 3151611264668341248, guid: 26d3724c3c4f4ae4d93cadd15d8f8a4f, type: 3}
   Icon: {fileID: 0}
   Name: 
+  canBePlacedOnPlate: 0
+  platePrefab: {fileID: 0}
   canBeSliced: 1
   slicedPrefab: {fileID: 11400000, guid: 250f78c9c7922c041b9dfc6f17c90c7a, type: 2}
   canBeFried: 0
   friedPrefab: {fileID: 0}
+  itIsABurntPrefab: 0
+  canBeBoiled: 0
+  boiledPrefab: {fileID: 0}
+  canBeMixed: 0
+  mixedPrefab: {fileID: 0}
   combineWith: []

@@ -23,6 +23,7 @@ public class CookingStove : Table
     /// <summary>
     /// speed with in block will cook items on it
     /// </summary>
+    [SerializeField]
     private float _cookSpeed = .5f;
     protected new void Start()
     {

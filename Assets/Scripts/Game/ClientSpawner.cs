@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ClientSpawner : MonoBehaviour
 {
+    [SerializeField]
     private float _clientSpawnDelay = 15f;
     [Range(1, 3), SerializeField]
     private int _clientMaxSpawnCount = 1;

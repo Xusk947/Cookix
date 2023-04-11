@@ -84,9 +84,6 @@ public class FoodReciever : Block
 
             float scale = Mathf.Lerp(UIHolder.transform.localScale.x, _targetScale, Time.deltaTime * 2.5f);
             UIHolder.transform.localScale = new Vector3(scale, scale, scale);
-        } else
-        {
-            FailTask();
         }
     }
     public override void Interact(ChefController player)
@@ -107,7 +104,7 @@ public class FoodReciever : Block
         }
     }
 
-    private void FailTask()
+    public void CancelOrder()
     {
         FoodTaskManager.Instance.RemoveTask(Task);
         Task = null;
