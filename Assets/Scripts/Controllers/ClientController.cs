@@ -20,6 +20,8 @@ public class ClientController : Controller
 
     private State _state = State.Idle;
     private Vector3 _target = Vector3.zero;
+
+    private ParticleSystem _angryParticles;
     public Vector3 Target
     {
         get { return _target; }
@@ -45,6 +47,8 @@ public class ClientController : Controller
         _handLeft = transform.Find("hand-left").GetComponent<MeshRenderer>();
         _handRight = transform.Find("hand-right").GetComponent<MeshRenderer>();
         ChangeSkinColor();
+
+        _angryParticles = transform.GetComponentInChildren<ParticleSystem>();
 
         _thinkTime += Random.Range(0, 2.5f);
 
@@ -117,6 +121,7 @@ public class ClientController : Controller
     
     private void Angry()
     {
+        _angryParticles.Play();
         _targetFoodReciever.isEmpty = true;
         _targetFoodReciever.Client = null;
         _targetFoodReciever.CancelOrder();
@@ -192,7 +197,6 @@ public class ClientController : Controller
         _handRight.material.color = skinColor;
         _head.material.color = skinColor;
     }
-
     private void OnDestroy()
     {
         CLIENTS.Remove(this);
