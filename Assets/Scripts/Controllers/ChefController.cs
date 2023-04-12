@@ -151,6 +151,7 @@ public abstract class ChefController : Controller
     /// <param name="e">is null</param>
     protected void ChefInteract(object sender, EventArgs e)
     {
+        if (GameManager.Instance.IsPaused) return;
         if (_selectedBlock != null)
         {
             Events.OnKitchenBlockInteract(new BlockArgs(this, _selectedBlock));
@@ -164,6 +165,7 @@ public abstract class ChefController : Controller
     /// <param name="e">also send a holding condition when player press and release button</param>
     protected virtual void ChefSecondInteract(object sender, EventArgs e)
     {
+        if (GameManager.Instance.IsPaused) return;
         if (_selectedBlock != null)
         {
             Events.OnKitchenBlockSecondInteract(new BlockArgs(this, _selectedBlock, (e as BoolEventArgs).Condition));

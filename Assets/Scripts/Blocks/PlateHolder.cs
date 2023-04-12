@@ -30,7 +30,6 @@ public class PlateHolder : Block
         for(int i = 0; i < transform.childCount; i++)
         {
             GameObject gameObject = transform.GetChild(i).gameObject;
-            print(gameObject.name + " : " + gameObject.name.StartsWith("plate"));
             if (gameObject.name.StartsWith("plate"))
             {
                 _plates.Add(gameObject);
