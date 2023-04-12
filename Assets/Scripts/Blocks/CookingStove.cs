@@ -21,6 +21,10 @@ public class CookingStove : Table
     /// </summary>
     private Image progressBar;
     /// <summary>
+    /// Run a particle system when something cook on this block
+    /// </summary>
+    private ParticleSystem _particleSystem;
+    /// <summary>
     /// speed with in block will cook items on it
     /// </summary>
     [SerializeField]
@@ -28,6 +32,7 @@ public class CookingStove : Table
     protected new void Start()
     {
         base.Start();
+        _particleSystem = transform.GetComponentInChildren<ParticleSystem>();
         // Spawn Kitchen Item on it
         if (ItemToSpawn != null)
         {
@@ -44,8 +49,12 @@ public class CookingStove : Table
         {
             warningHud.gameObject.SetActive(false);
             hud.SetActive(false);
+            _particleSystem?.Stop();
             return;
         };
+
+        _particleSystem?.Play();
+
         if (kitchenItemEntity.ItemIsBurning())
         {
             UpdateBurntState(kitchenItemEntity);
