@@ -45,11 +45,12 @@ public class Table : Block
                     break;
                 case KitchenItemEntity:
                     if (_itemEntity is FoodEntity) InteractKitchenItemEntityWithFoodEntity(player, player.CurrentItem as KitchenItemEntity, _itemEntity as FoodEntity);
-                    if (_itemEntity is PlateEntity) InteractPlateEntityWithKitchenItemEntity(player, _itemEntity as PlateEntity, player.CurrentItem as KitchenItemEntity);
+                    else if (_itemEntity is PlateEntity) InteractPlateEntityWithKitchenItemEntity(player, _itemEntity as PlateEntity, player.CurrentItem as KitchenItemEntity);
                     break;
                 case PlateEntity:
                     if (_itemEntity is FoodEntity) InteractPlateEntityWithFoodEntity(player, player.CurrentItem as PlateEntity, _itemEntity as FoodEntity);
-                    if (_itemEntity is KitchenItemEntity) InteractPlateEntityWithKitchenItemEntity(player, player.CurrentItem as PlateEntity, _itemEntity as KitchenItemEntity);
+                    else if (_itemEntity is KitchenItemEntity) InteractPlateEntityWithKitchenItemEntity(player, player.CurrentItem as PlateEntity, _itemEntity as KitchenItemEntity);
+                    else if (_itemEntity is PlateEntity) InteractPlateEntityWithPlateEntity(player, player.CurrentItem as PlateEntity, _itemEntity as PlateEntity);
                     break;
             }
         }
@@ -156,6 +157,27 @@ public class Table : Block
         {
             Item = plateEntity;
             player.CurrentItem = kitchenItemEntity;
+        }
+    }
+
+    private void InteractPlateEntityWithPlateEntity(ChefController controller, PlateEntity plate1, PlateEntity plate2)
+    {
+        // Try to Merge Items on plates
+        if (plate1.ItemOn != null && plate2.ItemOn != null)
+        {
+            FoodEntity combined;
+            if (plate1.ItemOn.CanCombine(plate2.ItemOn, out combined))
+            {
+                plate2.ItemOn = null;
+                plate1.ItemOn = combined;
+            } else if (plate2.ItemOn.CanCombine(plate1.ItemOn, out combined))
+            {
+                plate2.ItemOn = combined;
+                plate1.ItemOn = null;
+            }
+        } else // Switch between plates
+        {
+            (controller.CurrentItem, Item) = (Item, controller.CurrentItem);
         }
     }
     /// <summary>

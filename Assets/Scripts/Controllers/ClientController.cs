@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class ClientController : Controller
@@ -45,7 +46,7 @@ public class ClientController : Controller
         _handRight = transform.Find("hand-right").GetComponent<MeshRenderer>();
         ChangeSkinColor();
 
-        _thinkTime += Random.Range(-2.5f, 2.5f);
+        _thinkTime += Random.Range(0, 2.5f);
 
         CLIENTS.Add(this);
     }
@@ -80,7 +81,8 @@ public class ClientController : Controller
     }
     private void GoToReciever()
     {
-        if (_agent.remainingDistance > 1) return;
+        transform.LookAt(_targetFoodReciever.transform);
+        if (_agent.remainingDistance > 1 || _agent.velocity.magnitude > 0) return;
         _state = State.Thinking;
     }
 
@@ -89,12 +91,14 @@ public class ClientController : Controller
         _thinkTime -= Time.deltaTime;
         if (_thinkTime < 0)
         {
+            _animator.SetBool("TakeAnOrder", true);
             _state = State.TakeAnOrder;
         }
     }
 
     private void TakeAnOrder()
     {
+        _animator.SetBool("TakeAnOrder", false);
         FoodTaskManager.Instance.CreateTask();
         _targetFoodReciever.Task = FoodTaskManager.Instance.TakeTask();
         _targetFoodReciever.Client = this;
