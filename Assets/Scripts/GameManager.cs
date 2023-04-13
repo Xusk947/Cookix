@@ -22,14 +22,11 @@ public class GameManager : MonoBehaviour
     public Rules rules;
     public bool IsPaused = false;
 
-    private InGameUI _gameUI;
     private void Awake()
     {
         Instance = this;
         Recievers = new List<FoodReciever>();
         rules = Rules.Normal.Copy();
-
-        _gameUI = Canvas.GetComponent<InGameUI>();
 
         Content content = gameObject.AddComponent<Content>();
         content.Load();
@@ -53,13 +50,13 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0.0f;
         IsPaused = true;
-        _gameUI.Show();
+        InGameUI.Instance.Show();
     }
 
     public void Resume()
     {
         Time.timeScale = 1.0f;
         IsPaused = false;
-        _gameUI.Hide();
+        InGameUI.Instance.Hide();
     }
 }

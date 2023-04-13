@@ -10,6 +10,7 @@ public class ClientController : Controller
     public static List<ClientController> CLIENTS = new List<ClientController>();
     public float WaitTime { get; private set; } = 60f;
     public float WaitTimer { get; private set; } = 0f;
+    public FoodTask Order { get; private set; }
     private float _thinkTime = 3f;
     private FoodReciever _targetFoodReciever;
 
@@ -104,7 +105,8 @@ public class ClientController : Controller
     {
         _animator.SetBool("TakeAnOrder", false);
         FoodTaskManager.Instance.CreateTask();
-        _targetFoodReciever.Task = FoodTaskManager.Instance.TakeTask();
+        Order = FoodTaskManager.Instance.TakeTask();
+        _targetFoodReciever.Task = Order;
         _targetFoodReciever.Client = this;
 
         WaitTime *= _targetFoodReciever.Task.difficult * GameManager.Instance.rules.ClientWaitTimeMultiplayer;
@@ -130,6 +132,7 @@ public class ClientController : Controller
         Target = GameManager.Instance.clienExit.transform.position;
         _agent.SetDestination(Target);
 
+        Events.OnClientOrderFail(new ClientArgs(this));
         _state = State.OutFromReciever;
     }
     private void GoToExit()
@@ -160,6 +163,7 @@ public class ClientController : Controller
     public void GetAnOrder()
     {
         Target = GameManager.Instance.clienExit.transform.position;
+        Events.OnClientOrderFinish(new ClientArgs(this));
         _agent.SetDestination(Target);
         
         _targetFoodReciever.isEmpty = true;

@@ -21,6 +21,14 @@ public class Events : MonoBehaviour
     /// When player press or release Second Interaction Key
     /// </summary>
     public static event EventHandler<BlockArgs> KitchenBlockSecondInteract;
+    /// <summary>
+    /// When player finish ClientOrder
+    /// </summary>
+    public static event EventHandler<ClientArgs> ClientOrderFinish;
+    /// <summary>
+    /// When Client time is gone and order failed
+    /// </summary>
+    public static event EventHandler<ClientArgs> ClientOrderFail;
 
     public static void OnKitchenBlockSelected(BlockArgs args)
     {
@@ -40,5 +48,15 @@ public class Events : MonoBehaviour
     public static void OnKitchenBlockSecondInteract(BlockArgs args)
     {
         KitchenBlockSecondInteract?.Invoke(null, args);
+    }
+
+    public static void OnClientOrderFinish(ClientArgs args)
+    {
+        ClientOrderFinish?.Invoke(null, args);
+    }
+
+    public static void OnClientOrderFail(ClientArgs args)
+    {
+        ClientOrderFail?.Invoke(null, args);
     }
 }

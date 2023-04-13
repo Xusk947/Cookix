@@ -31,4 +31,12 @@ public class BlockEventsHandler : MonoBehaviour
     {
         e.Block.SecondInteract(e.ChefController, e.PressCondition);
     }
+
+    private void OnDestroy()
+    {
+        Events.KitchenBlockInteract -= OnKitchenBlockInteract;
+        Events.KitchenBlockSelected -= OnKitchenBlockSelected;
+        Events.KitchenBlockUnselected -= OnKitchenBlockUnselected;
+        Events.KitchenBlockSecondInteract -= OnKitchenBlockSecondInteract;
+    }
 }
