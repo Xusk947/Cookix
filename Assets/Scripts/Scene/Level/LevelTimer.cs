@@ -11,7 +11,9 @@ public class LevelTimer : LevelController
     protected override void Start()
     {
         base.Start();
-        _timer = _waitTime * 60f;
+        _timer = 1f;
+
+        InGameUI.Instance.ChangeWaitTime(_waitTime);
     }
 
     protected override void Update()
@@ -19,6 +21,9 @@ public class LevelTimer : LevelController
         _timer -= Time.deltaTime;
         if (_timer < 0)
         {
+            _waitTime -= 1;
+            _timer = 1f;
+           InGameUI.Instance.ChangeWaitTime(_waitTime);
         }
     }
 }

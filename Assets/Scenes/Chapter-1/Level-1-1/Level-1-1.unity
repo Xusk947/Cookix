@@ -1569,7 +1569,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 58533167}
-  m_LocalRotation: {x: 0.45629126, y: -0.0020659345, z: 0.0010593827, w: 0.8898275}
+  m_LocalRotation: {x: 0.4562913, y: -0.002065896, z: 0.001059363, w: 0.8898275}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6106,7 +6106,7 @@ GameObject:
   - component: {fileID: 227130657}
   - component: {fileID: 227130659}
   m_Layer: 5
-  m_Name: Timer
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6187,6 +6187,7 @@ MonoBehaviour:
   _defaultColor: {r: 1, g: 1, b: 1, a: 1}
   _defaultTextColor: {r: 0, g: 0, b: 0, a: 1}
   _speed: 10
+  _speedText: 10
 --- !u!1001 &227216038
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10174,7 +10175,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Score
+  m_text: Timer
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -15143,6 +15144,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5740904039295042878, guid: 17dd15a33e07800468cf31e82aef5b07, type: 3}
   m_PrefabInstance: {fileID: 540697373}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &541435054
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 541435056}
+  - component: {fileID: 541435055}
+  m_Layer: 0
+  m_Name: LevelController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &541435055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541435054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96ef783ab73b774f90000af5fca25ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _waitTime: 60
+--- !u!4 &541435056
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541435054}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 927.3411, y: 331.06583, z: -11.0774145}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &543115584 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1645665993207345067, guid: 2645b52e2de076f4ab63722043db8b26, type: 3}
@@ -17293,7 +17339,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616008402}
-  m_LocalRotation: {x: 0.44961292, y: -0.002073788, z: 0.0010438652, w: 0.8932205}
+  m_LocalRotation: {x: 0.44961292, y: -0.0020738188, z: 0.0010438808, w: 0.8932205}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -22567,7 +22613,6 @@ GameObject:
   - component: {fileID: 792251704}
   - component: {fileID: 792251706}
   - component: {fileID: 792251707}
-  - component: {fileID: 792251708}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -22716,19 +22761,6 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 46f2c57d8bbd251488aa8611b6387045, type: 2}
   m_BuildHeightMesh: 0
---- !u!114 &792251708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 792251699}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96ef783ab73b774f90000af5fca25ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _waitTime: 60
 --- !u!4 &792759401 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3361265880002419194, guid: 5b4f8d9db67ec4c4f8493f4897f3b0b1, type: 3}
@@ -35696,7 +35728,7 @@ GameObject:
   - component: {fileID: 1258329484}
   - component: {fileID: 1258329483}
   m_Layer: 5
-  m_Name: Score
+  m_Name: Timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35739,6 +35771,7 @@ MonoBehaviour:
   _defaultColor: {r: 1, g: 1, b: 1, a: 1}
   _defaultTextColor: {r: 0, g: 0, b: 0, a: 1}
   _speed: 10
+  _speedText: 10
 --- !u!114 &1258329484
 MonoBehaviour:
   m_ObjectHideFlags: 0

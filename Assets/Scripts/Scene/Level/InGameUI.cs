@@ -21,14 +21,18 @@ public class InGameUI : MonoBehaviour
     private Color _preferColor;
     private Color _empty = new Color();
 
-    private void Start()
+    private void Awake()
     {
         Instance = this;
+
         _canvas = GetComponent<Canvas>();
 
         _game = _canvas.transform.Find("Game").gameObject;  
-        _textScore = _game.transform.Find("Timer").GetComponentInChildren<TextColorAnimation>();
-        _textTimer = _game.transform.Find("Score").GetComponentInChildren<TextColorAnimation>();
+        _textScore = _game.transform.Find("Score").GetComponentInChildren<TextColorAnimation>();
+        _textTimer = _game.transform.Find("Timer").GetComponentInChildren<TextColorAnimation>();
+    }
+    private void Start()
+    {
 
         _settings = _canvas.transform.Find("Settings").gameObject;
         _background = _settings.transform.Find("Background").GetComponent<Image>();
@@ -37,7 +41,7 @@ public class InGameUI : MonoBehaviour
         _preferColor = _empty;
         _settings.SetActive(false);
         _game.SetActive(true);
-        ChangeScore(0);
+        ChangeScore(0, false);
     }
 
     private void Update()
@@ -45,12 +49,19 @@ public class InGameUI : MonoBehaviour
 
     }
 
-    public void ChangeScore(float score)
+    public void ChangeScore(float score, bool positive)
     {
+        float angle = Random.Range(10f, 20f) * (Random.Range(0, 1) > 0.5 ? 1 : -1);
         _textScore.Text.text = ((int)score).ToString();
-        _textScore.transform.localScale += new Vector3(0.25f, 0.25f, 0.25f);
-        _textScore.Text.transform.eulerAngles += new Vector3(0, 0, Random.Range(10f, 20f));
-        _textScore.Text.color = Color.yellow;
+        _textScore.Text.transform.localScale += (new Vector3(0.5f, 0.5f, 0.5f) * (positive ? 1 : -1));
+        _textScore.Text.transform.eulerAngles += new Vector3(0, 0, angle);
+        _textScore.Text.color = positive ? Color.yellow : Color.red;
+    }
+
+    public void ChangeWaitTime(int time)
+    {
+        _textTimer.Text.text = time.ToString();
+        _textTimer.Text.transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
     }
 
     public void Show()
