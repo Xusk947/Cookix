@@ -83,6 +83,9 @@ public class InFinishUI : MonoBehaviour
     private void ScoreAnimation()
     {
         _speed += 0.01f;
+
+        if (LevelData.Instance == null) new LevelData();
+
         if (_currentScore != LevelData.Instance.Score)
         {
             int _lastScore = _currentScore;

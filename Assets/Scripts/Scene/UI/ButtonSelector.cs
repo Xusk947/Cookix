@@ -37,7 +37,8 @@ public class ButtonSelector : MonoBehaviour
         _image.color = _baseColor;
         _baseTextColor = _text.color;
 
-        _preferColor = new Color();
+        _preferColor = _baseColor;
+        _preferTextColor = _baseTextColor;
         _preferSize = 1.0f;
     }
     public Color GetDefaultColor()

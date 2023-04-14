@@ -1446,7 +1446,7 @@ GameObject:
   - component: {fileID: 1281834517}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2307,6 +2307,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c237b3ea466ac34186663f8011725b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _backgroundColorToSet: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  _textColorToSet: {r: 1, g: 1, b: 1, a: 1}
+  _preferColor: {r: 0, g: 0, b: 0, a: 0}
+  _preferTextColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1525559143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2598,6 +2602,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c237b3ea466ac34186663f8011725b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _backgroundColorToSet: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  _textColorToSet: {r: 1, g: 1, b: 1, a: 1}
+  _preferColor: {r: 0, g: 0, b: 0, a: 0}
+  _preferTextColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1777114487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3322,6 +3330,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c237b3ea466ac34186663f8011725b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _backgroundColorToSet: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  _textColorToSet: {r: 1, g: 1, b: 1, a: 1}
+  _preferColor: {r: 0, g: 0, b: 0, a: 0}
+  _preferTextColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &2125832333
 MonoBehaviour:
   m_ObjectHideFlags: 0

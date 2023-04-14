@@ -20,7 +20,6 @@ public class PlayerController : ChefController
         _gameInput = GameInput.Instance;
         _gameInput.OnInteractAction += ChefInteract;
         _gameInput.OnSecondInteractAction += ChefSecondInteract;
-
         players.Add(this);
     }
 
@@ -35,5 +34,10 @@ public class PlayerController : ChefController
         _characterController.SimpleMove(direction * 5f);
         bool isMoving = _characterController.velocity.magnitude > 0.1f;
         _animator.SetBool("IsMoving", isMoving);
+    }
+
+    protected void OnDestroy()
+    {
+        players.Remove(this);
     }
 }

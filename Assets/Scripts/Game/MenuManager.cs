@@ -12,22 +12,14 @@ public class MenuManager : MonoBehaviour
     private Camera _camera;
     [SerializeField]
     private Canvas _canvas;
-    private GameObject _buttonStart, _buttonSettings, _buttonExit;
     [SerializeField]
     private LeanTweenType _outType;
 
-    private void Start()
-    {
-        GameObject startMenu = _canvas.transform.Find("StartMenu").gameObject;
-        _buttonStart = startMenu.transform.Find("Start").gameObject;
-        _buttonSettings = startMenu.transform.Find("Settings").gameObject;
-        _buttonExit = startMenu.transform.Find("Exit").gameObject;
-    }
-
     private void Update()
     {
-        _camera.transform.position += new Vector3(0, 0, 0.01f * Time.deltaTime);
-        if (_camera.transform.position.z > 5f) _camera.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        if (Camera.main == null) return;
+        Camera.main.transform.position += new Vector3(0, 0, 0.01f * Time.deltaTime);
+        if (Camera.main.transform.position.z > 5f) Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0);
     }
     public void OnStartButtonClick()
     {

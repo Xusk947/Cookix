@@ -124,6 +124,11 @@ public class FoodReciever : Block
         return false;
     }
 
+    private void OnDestroy()
+    {
+        GameManager.Instance.Recievers.Remove(this);
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;

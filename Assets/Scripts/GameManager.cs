@@ -59,4 +59,9 @@ public class GameManager : MonoBehaviour
         IsPaused = false;
         InGameUI.Instance.Hide();
     }
+
+    private void OnDestroy()
+    {
+        Time.timeScale = 1.0f;
+    }
 }
