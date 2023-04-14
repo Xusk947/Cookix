@@ -64,6 +64,12 @@ public class InGameUI : MonoBehaviour
         _textTimer.Text.transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
     }
 
+    public void ChangeWaitTimeText(string text)
+    {
+        _textTimer.Text.text = text;
+        _textTimer.Text.transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+    }
+
     public void Show()
     {
         _preferColor = _baseColor;

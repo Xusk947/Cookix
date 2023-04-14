@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using UnityEditor;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public abstract class LevelController : MonoBehaviour
 {
+    [SerializeField, ReadOnly(true)]
     private LevelData _data;
     protected virtual void Start()
     {
         _data = new LevelData();
+        _data.SceneID = SceneManager.GetActiveScene().buildIndex;
         Events.ClientOrderFinish += ClientOrderFinish;
         Events.ClientOrderFail += ClientOrderFail;
     }
@@ -27,7 +32,7 @@ public abstract class LevelController : MonoBehaviour
         InGameUI.Instance.ChangeScore(_data.Score, false);
     }
 
-    private void FinishLevel()
+    protected virtual void FinishLevel()
     {
 
     }

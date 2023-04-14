@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,10 +17,15 @@ public class ButtonSelector : MonoBehaviour
     private TextMeshProUGUI _text;
     private Shadow _shadow;
 
+    [SerializeField]
+    private Color _backgroundColorToSet = Color.yellow;
+    [SerializeField]
+    private Color _textColorToSet = Color.white;
+    [SerializeField]
     private Color _preferColor, _preferTextColor;
     private Color _baseColor, _baseTextColor;
-    private float _preferSize, _speed;
-    private void Start()
+    private float _preferSize, _speed = 10f;
+    private void Awake()
     {
         _layoutElement = GetComponent<LayoutElement>();
         _image = GetComponent<Image>();
@@ -33,6 +39,26 @@ public class ButtonSelector : MonoBehaviour
 
         _preferColor = new Color();
         _preferSize = 1.0f;
+    }
+    public Color GetDefaultColor()
+    {
+        return _baseColor;
+    }
+
+    public Color GetDefaultTextColor()
+    {
+        return _baseTextColor;
+    }
+    public void SetColor(Color color)
+    {
+        _image.color = color;
+        _text.color = color;
+    }
+
+    public void ChangePreferColor(Color color, Color textColor)
+    {
+        _preferColor = color;
+        _preferTextColor = textColor;
     }
 
     private void Update()
@@ -48,10 +74,11 @@ public class ButtonSelector : MonoBehaviour
     {
         _layoutElement.layoutPriority = 2;
         _shadow.enabled = true;
-        _preferColor = Color.yellow;
-        _preferTextColor = Color.white;
         _preferSize = 1.2f;
+        _preferColor = _backgroundColorToSet;
+        _preferTextColor = _textColorToSet;
         _speed = 10f;
+        HighLight();
     }
 
     public void OnPointExit()
@@ -62,6 +89,13 @@ public class ButtonSelector : MonoBehaviour
         _preferTextColor = _baseTextColor;
         _preferSize = 1.0f;
         _speed = 50f;
+    }
+
+    public void HighLight(float speed = 10f)
+    {
+        _image.color = _backgroundColorToSet;
+        _text.color = _textColorToSet;
+        _speed = speed;
     }
 
 }
