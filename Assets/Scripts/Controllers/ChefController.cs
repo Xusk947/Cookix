@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public abstract class ChefController : Controller
@@ -26,6 +27,7 @@ public abstract class ChefController : Controller
     /// <summary>
     /// Item which player hold in current time
     /// </summary>
+    [SerializeField, ReadOnly(true)]
     protected ItemEntity _currentItem { get; set; }
     /// <summary>
     /// Block which is hovered by player Eyes

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : ChefController
 {
-    public static List<PlayerController> players = new List<PlayerController>();
 
+    public static List<PlayerController> players = new List<PlayerController>();
+    [SerializeField, ReadOnly(true)]
     private GameInput _gameInput;
     private CharacterController _characterController;
 

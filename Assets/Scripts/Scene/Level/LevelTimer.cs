@@ -25,7 +25,10 @@ public class LevelTimer : LevelController
         {
             _waitTime -= 1;
             _timer = 1f;
-           InGameUI.Instance.ChangeWaitTime(_waitTime);
+           if (_waitTime > 0)
+           {
+                InGameUI.Instance.ChangeWaitTime(_waitTime);
+           }
            if (_waitTime <= 0)
             {
                 if (_finishLevelCooldown == 3)
@@ -39,10 +42,5 @@ public class LevelTimer : LevelController
                 }
             }
         }
-    }
-
-    protected override void FinishLevel()
-    {
-        InGameUI.Instance.ChangeWaitTimeText("Time's Up!");
     }
 }

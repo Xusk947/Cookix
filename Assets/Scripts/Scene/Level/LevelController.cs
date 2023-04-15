@@ -12,8 +12,10 @@ public abstract class LevelController : MonoBehaviour
     private LevelData _data;
     protected virtual void Start()
     {
-        _data = new LevelData();
-        _data.SceneID = SceneManager.GetActiveScene().buildIndex;
+        _data = new LevelData
+        {
+            SceneID = SceneManager.GetActiveScene().buildIndex
+        };
         Events.ClientOrderFinish += ClientOrderFinish;
         Events.ClientOrderFail += ClientOrderFail;
     }
@@ -34,7 +36,7 @@ public abstract class LevelController : MonoBehaviour
 
     protected virtual void FinishLevel()
     {
-
+        InGameUI.Instance.ChangeWaitTimeText("Time's Up!");
     }
 
     public void LoadNext()

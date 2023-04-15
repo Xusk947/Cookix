@@ -26,10 +26,9 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         Recievers = new List<FoodReciever>();
-        rules = Rules.Normal.Copy();
+        if (rules == null) rules = Rules.Normal.Copy();
 
-        Content content = gameObject.AddComponent<Content>();
-        content.Load();
+        if (Content.Instance == null) new Content().Load();
     }
 
     private void Update()
@@ -46,11 +45,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Pause()
+    public void Pause(bool showMenu = true)
     {
         Time.timeScale = 0.0f;
         IsPaused = true;
-        InGameUI.Instance.Show();
+        if (showMenu)
+        {
+            InGameUI.Instance.Show();
+        }
     }
 
     public void Resume()

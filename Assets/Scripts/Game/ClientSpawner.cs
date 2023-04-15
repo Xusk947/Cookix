@@ -39,4 +39,11 @@ public class ClientSpawner : MonoBehaviour
         controller.Target = GameManager.Instance.clientEntter.transform.position;
         controller.transform.position = transform.position;
     }
+
+    public static void InstantlySpawn()
+    {
+        ClientController controller = Instantiate(Content.Instance.Person);
+        controller.Target = GameManager.Instance.clientEntter.transform.position;
+        controller.transform.position = GameManager.Instance.clientEntter.transform.position;
+    }
 }

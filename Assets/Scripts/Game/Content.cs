@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 [InitializeOnLoad]
-public class Content : MonoBehaviour
+public class Content
 {
     public static Content Instance { get; private set; }
     // Materials
@@ -28,6 +28,8 @@ public class Content : MonoBehaviour
     // Sprites
     [HideInInspector]
     public Sprite Pixel1x1;
+    // Person Prefab
+    public ClientController Person;
     public void Load()
     {
         Burnt = Resources.Load<Material>("Models/Items/Food/Material/Burnt");
@@ -44,6 +46,8 @@ public class Content : MonoBehaviour
         IconCancel = Resources.Load<IconHide>("Models/Prefabs/UI/CancelIcon");
         IconAccept = Resources.Load<IconHide>("Models/Prefabs/UI/AcceptIcon");
         WarningIcon = Resources.Load<Animator>("Models/Prefabs/UI/WarningIcon");
+
+        Person = Resources.Load<ClientController>("Models/Prefabs/Persons/person-walker");
 
         Instance = this;
     }

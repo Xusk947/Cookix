@@ -10,6 +10,8 @@ public class InGameUI : MonoBehaviour
 {
     public static InGameUI Instance { get; private set; }
     private Canvas _canvas;
+    // -- Round Start Group
+    private GameObject _startTimer;
     // -- Game UI Group
     private GameObject _game;
     private TextColorAnimation _textScore;
@@ -20,6 +22,9 @@ public class InGameUI : MonoBehaviour
     private Color _baseColor;
     private Color _preferColor;
     private Color _empty = new Color();
+    // -- Tutorial Group
+    private bool _tutorialClosed;
+    private GameObject _tutorial;
 
     private void Awake()
     {
@@ -29,7 +34,20 @@ public class InGameUI : MonoBehaviour
 
         _game = _canvas.transform.Find("Game").gameObject;  
         _textScore = _game.transform.Find("Score").GetComponentInChildren<TextColorAnimation>();
-        _textTimer = _game.transform.Find("Timer").GetComponentInChildren<TextColorAnimation>();
+        _textTimer = _game.transform.Find("Timer")?.GetComponentInChildren<TextColorAnimation>();
+
+        Transform tutorialTransform = _canvas.transform.Find("Tutorial");
+        _tutorialClosed = true;
+        if (tutorialTransform != null)
+        {
+            _tutorial = tutorialTransform.gameObject;
+            if (_tutorial.transform.childCount > 0)
+            {
+                Time.timeScale = 0.0f;
+                _tutorialClosed = false;
+            }
+        }
+        
     }
     private void Start()
     {
@@ -40,8 +58,11 @@ public class InGameUI : MonoBehaviour
         _baseColor = _background.color;
         _preferColor = _empty;
         _settings.SetActive(false);
+        if (!_tutorialClosed)
+        {
+            _game.SetActive(false);
+        }
         _game.SetActive(true);
-        ChangeScore(0, false);
     }
 
     private void Update()
@@ -51,6 +72,7 @@ public class InGameUI : MonoBehaviour
 
     public void ChangeScore(float score, bool positive)
     {
+        if (_textScore == null || _textScore.Text == null) return;
         float angle = Random.Range(10f, 20f) * (Random.Range(0, 1) > 0.5 ? 1 : -1);
         _textScore.Text.text = ((int)score).ToString();
         _textScore.Text.transform.localScale += (new Vector3(0.5f, 0.5f, 0.5f) * (positive ? 1 : -1));
@@ -94,5 +116,16 @@ public class InGameUI : MonoBehaviour
     public void OnExitButtonClick()
     {
         SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+    }
+
+    public void OnTutorialButtonClick()
+    {
+        _game.SetActive(true);
+        RemoveTutorial();
+    }
+    private void RemoveTutorial()
+    {
+        _tutorial.SetActive(false);
+        GameManager.Instance.Resume();
     }
 }
