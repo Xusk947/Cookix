@@ -12,6 +12,13 @@ public class FoodTaskManager : MonoBehaviour
     private List<FoodTask> _takedTasks;
 
     private GameObject foodTaskHolder;
+
+    public List<FoodTask> FoodTasks
+    {
+        get { return _foodTasks; }
+        set { _foodTasks = value; }
+    }
+
     private void Start()
     {
         Instance = this;

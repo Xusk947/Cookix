@@ -25,7 +25,7 @@ public class InGameUI : MonoBehaviour
     // -- Tutorial Group
     private bool _tutorialClosed;
     private GameObject _tutorial;
-
+    // THIS SHITTY CODE SHOULD BE REMOVED FROM PROJECT BUT IT STILL ALIVE BECAUSE I'M LAZY 
     private void Awake()
     {
         Instance = this;

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[InitializeOnLoad]
 public class Content
 {
     private static Content _CONTENT;
@@ -11,7 +10,6 @@ public class Content
     {
         get
         {
-            Debug.Log(_CONTENT);
             if (_CONTENT != null) return _CONTENT;
             _CONTENT = new Content();
             _CONTENT.Load();

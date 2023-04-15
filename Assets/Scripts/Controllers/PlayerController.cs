@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerController : ChefController
 {
 
-    public static List<PlayerController> players = new List<PlayerController>();
+    public static List<PlayerController> players = new();
     private GameInput _gameInput;
     private CharacterController _characterController;
 
@@ -28,9 +28,8 @@ public class PlayerController : ChefController
     protected override void UpdateMovement()
     {
         Vector2 inputVector = _gameInput.GetMovementVectorNormalized();
-        Vector3 direction = new Vector3(inputVector.x, 0, inputVector.y);
+        Vector3 direction = new(inputVector.x, 0, inputVector.y);
 
-        Vector3 position = transform.position + direction * Time.deltaTime * 5f;
         transform.forward = Vector3.Slerp(transform.forward, direction, Time.deltaTime * 7.5f);
         _characterController.SimpleMove(direction * 5f);
         bool isMoving = _characterController.velocity.magnitude > 0.1f;

@@ -7,11 +7,29 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(NavMeshAgent))]
 public class ClientController : Controller
 {
-    public static List<ClientController> CLIENTS = new List<ClientController>();
+    /// <summary>
+    /// All clients on the map
+    /// </summary>
+    public static List<ClientController> CLIENTS = new();
+    /// <summary>
+    /// Default before client will leave the food reciever with angry state
+    /// </summary>
     public float WaitTime { get; private set; } = 60f;
+    /// <summary>
+    /// Timer in wait state
+    /// </summary>
     public float WaitTimer { get; private set; } = 0f;
+    /// <summary>
+    /// Current order
+    /// </summary>
     public FoodTask Order { get; private set; }
+    /// <summary>
+    /// Time before Client choose an order
+    /// </summary>
     private float _thinkTime = 3f;
+    /// <summary>
+    /// Where Client will move 
+    /// </summary>
     private FoodReciever _targetFoodReciever;
 
     protected NavMeshAgent _agent;
@@ -196,7 +214,7 @@ public class ClientController : Controller
         float g = Random.Range(0.4f, 0.8f);
         float b = Random.Range(0.2f, 0.6f);
 
-        Color skinColor = new Color(r, g, b);
+        Color skinColor = new(r, g, b);
         _handLeft.material.color = skinColor;
         _handRight.material.color = skinColor;
         _head.material.color = skinColor;
