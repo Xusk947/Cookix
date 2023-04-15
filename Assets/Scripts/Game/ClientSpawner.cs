@@ -20,6 +20,11 @@ public class ClientSpawner : MonoBehaviour
     /// </summary>
     [SerializeField]
     private ClientController _client;
+
+    private void Start()
+    {
+        _timer = _clientSpawnDelay;
+    }
     private void Update()
     {
         _timer -= Time.deltaTime;

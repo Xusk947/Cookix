@@ -28,7 +28,7 @@ public class MenuManager : MonoBehaviour
 
     private void ChangeScene()
     {
-        SceneManager.LoadScene("Level-1-1", LoadSceneMode.Single);
+        SceneManager.LoadScene("BaseTutorial", LoadSceneMode.Single);
     }
 
     public void OnSettingsButtonClick()

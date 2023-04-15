@@ -6,7 +6,22 @@ using UnityEngine;
 [InitializeOnLoad]
 public class Content
 {
-    public static Content Instance { get; private set; }
+    private static Content _CONTENT;
+    public static Content Instance
+    {
+        get
+        {
+            Debug.Log(_CONTENT);
+            if (_CONTENT != null) return _CONTENT;
+            _CONTENT = new Content();
+            _CONTENT.Load();
+            return _CONTENT;
+        }
+        private set
+        {
+            _CONTENT = value;
+        }
+    }
     // Materials
     public Material Burnt;
     // GUI for FoodItems
@@ -30,6 +45,11 @@ public class Content
     public Sprite Pixel1x1;
     // Person Prefab
     public ClientController Person;
+    // VFX 
+    public AudioClip UISelect;
+    public List<AudioClip> PlayerSelect;
+    public AudioClip Fry;
+    public AudioClip Slice;
     public void Load()
     {
         Burnt = Resources.Load<Material>("Models/Items/Food/Material/Burnt");
@@ -49,6 +69,13 @@ public class Content
 
         Person = Resources.Load<ClientController>("Models/Prefabs/Persons/person-walker");
 
-        Instance = this;
+        UISelect = Resources.Load<AudioClip>("VFX/select-ui");
+
+        PlayerSelect = new List<AudioClip>() {
+            Resources.Load<AudioClip>("VFX/item-select-1"),
+            Resources.Load<AudioClip>("VFX/item-select-2"),
+            Resources.Load<AudioClip>("VFX/item-select-3"),
+            Resources.Load<AudioClip>("VFX/item-select-4")
+        };
     }
 }

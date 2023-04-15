@@ -30,6 +30,10 @@ public abstract class ChefController : Controller
     [SerializeField, ReadOnly(true)]
     protected ItemEntity _currentItem { get; set; }
     /// <summary>
+    /// When player take an Item play sound
+    /// </summary>
+    protected AudioSource _audioSource;
+    /// <summary>
     /// Block which is hovered by player Eyes
     /// </summary>
     protected Block _selectedBlock;
@@ -48,6 +52,8 @@ public abstract class ChefController : Controller
             _currentItem = value;
             bool hasItem = _currentItem != null;
             _animator.SetBool("HasAnItem", hasItem);
+            _audioSource.clip = Content.Instance.PlayerSelect[UnityEngine.Random.Range(0, Content.Instance.PlayerSelect.Count)];
+            _audioSource.Play();
             if (hasItem)
             {
                 _currentItem.transform.parent = ItemHolder.transform;
@@ -81,6 +87,8 @@ public abstract class ChefController : Controller
     protected override void Start()
     {
         base.Start();
+        _audioSource = gameObject.AddComponent<AudioSource>();
+        _audioSource.playOnAwake = false;
         // Create a ray for cheking blocks forward the Player
         _ray = new Ray();
         // Find another Children

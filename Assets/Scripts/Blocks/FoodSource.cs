@@ -36,6 +36,11 @@ public class FoodSource : Block
                 {
                     Destroy(newItem.gameObject);
                 }
+            } else if (player.CurrentItem is PlateEntity)
+            {
+                PlateEntity plate = (player.CurrentItem as PlateEntity);
+                FoodEntity foodEntity = _sourceItem.Create();
+                if (!plate.TryToAddItemOn(foodEntity)) Destroy(foodEntity.gameObject);
             }
             return;
         }

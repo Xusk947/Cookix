@@ -15,6 +15,10 @@ public class TrashCan : Block
             case KitchenItemEntity:
                 (player.CurrentItem as KitchenItemEntity).RemoveItems();
                 break;
+            case PlateEntity:
+                print("FUCK THIS PLATE");
+                (player.CurrentItem as PlateEntity).RemoveItems();
+                break;
         }
     }
 }

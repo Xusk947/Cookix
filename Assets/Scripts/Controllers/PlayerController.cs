@@ -8,7 +8,6 @@ public class PlayerController : ChefController
 {
 
     public static List<PlayerController> players = new List<PlayerController>();
-    [SerializeField, ReadOnly(true)]
     private GameInput _gameInput;
     private CharacterController _characterController;
 

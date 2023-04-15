@@ -265,6 +265,7 @@ public class LevelTutorial : LevelController
         _textAngryClient.gameObject.SetActive(false);
         _textGoodLuck.gameObject.SetActive(true);
         _timer = 5f;
+        GameManager.Instance.rules.ClientWaitTimeMultiplayer = 1.0f;
         _currentStep = Step.FinishLevel;
     }
 

@@ -25,6 +25,8 @@ public class ButtonSelector : MonoBehaviour
     private Color _preferColor, _preferTextColor;
     private Color _baseColor, _baseTextColor;
     private float _preferSize, _speed = 10f;
+
+    private AudioSource _source;
     private void Awake()
     {
         _layoutElement = GetComponent<LayoutElement>();
@@ -32,6 +34,14 @@ public class ButtonSelector : MonoBehaviour
         _text = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         _shadow = GetComponent<Shadow>();
         _shadow.enabled = false;
+
+        _source = GetComponent<AudioSource>();
+        if (_source == null)
+        {
+            _source = gameObject.AddComponent<AudioSource>();
+            _source.playOnAwake = false;
+            _source.clip = Content.Instance.UISelect;
+        }
 
         _baseColor = _image.color - new Color(0, 0, 0, 0.35f);
         _image.color = _baseColor;
@@ -73,6 +83,7 @@ public class ButtonSelector : MonoBehaviour
 
     public void OnPointEntter()
     {
+        if (_source != null) _source.Play();
         _layoutElement.layoutPriority = 2;
         _shadow.enabled = true;
         _preferSize = 1.2f;

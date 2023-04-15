@@ -51,7 +51,7 @@ public class InGameUI : MonoBehaviour
     }
     private void Start()
     {
-
+        if (_tutorial != null) _tutorial.SetActive(true);
         _settings = _canvas.transform.Find("Settings").gameObject;
         _background = _settings.transform.Find("Background").GetComponent<Image>();
 

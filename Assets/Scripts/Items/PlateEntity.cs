@@ -32,6 +32,13 @@ public class PlateEntity : ItemEntity
         return true;
     }
 
+    public void RemoveItems()
+    {
+        if (_itemOn == null) return;
+        Destroy(_itemOn.gameObject);
+        _itemOn = null;
+    }
+
     private bool TryToMerge(FoodEntity foodEntity)
     {
         FoodEntity merged;
