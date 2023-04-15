@@ -108,7 +108,7 @@ public class InFinishUI : MonoBehaviour
 
     public void OnNextButton()
     {
-        //SceneManager.LoadScene();
+        SceneManager.LoadScene(LevelData.Instance.SceneID++);
     }
 
     public void OnExitButton()
