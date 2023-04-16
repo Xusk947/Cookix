@@ -1564,7 +1564,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 58533167}
-  m_LocalRotation: {x: 0.4562913, y: -0.002065896, z: 0.001059363, w: 0.8898275}
+  m_LocalRotation: {x: 0.4562913, y: -0.0020658893, z: 0.0010593596, w: 0.88982743}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -17481,7 +17481,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616008402}
-  m_LocalRotation: {x: 0.44961292, y: -0.0020738188, z: 0.0010438808, w: 0.8932205}
+  m_LocalRotation: {x: 0.44961292, y: -0.002073788, z: 0.0010438655, w: 0.8932205}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -23123,11 +23123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _foodTasks:
-  - {fileID: 11400000, guid: 080e323f2500e974c84221f6796368b4, type: 2}
   - {fileID: 11400000, guid: db0b521ae01e22244b0d288b7b7e670e, type: 2}
   - {fileID: 11400000, guid: cb2f64b601b20aa4c9f60f56c2e3e996, type: 2}
   - {fileID: 11400000, guid: 899de012d6978be4d92b7fae7274b23e, type: 2}
-  - {fileID: 11400000, guid: 97df9718b66587045a19f8faf287a0fc, type: 2}
 --- !u!114 &792251705
 MonoBehaviour:
   m_ObjectHideFlags: 0

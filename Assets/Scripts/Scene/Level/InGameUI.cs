@@ -16,6 +16,8 @@ public class InGameUI : MonoBehaviour
     private GameObject _game;
     private TextColorAnimation _textScore;
     private TextColorAnimation _textTimer;
+    // -- Game Settings 
+    private GameObject _gameSettings;
     // -- Setting Group
     private GameObject _settings;
     private Image _background;

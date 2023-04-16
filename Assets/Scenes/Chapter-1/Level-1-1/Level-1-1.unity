@@ -1564,7 +1564,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 58533167}
-  m_LocalRotation: {x: 0.4562913, y: -0.0020658893, z: 0.0010593596, w: 0.88982743}
+  m_LocalRotation: {x: 0.4562913, y: -0.0020659626, z: 0.0010593972, w: 0.88982743}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -17481,7 +17481,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616008402}
-  m_LocalRotation: {x: 0.44961292, y: -0.002073788, z: 0.0010438655, w: 0.8932205}
+  m_LocalRotation: {x: 0.44961292, y: -0.002073819, z: 0.001043881, w: 0.8932205}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -23122,7 +23122,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 0d879bfae346d894195631d78bfb42f8, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 9e1de3471ed8a26429e849636fa8dae7, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &792759401 stripped
 Transform:

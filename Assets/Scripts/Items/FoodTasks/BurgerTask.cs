@@ -38,7 +38,9 @@ public class BurgerTask : FoodTask
         FoodEntity foodEntity = _foodItem.Create(false);
         foreach (FoodItem item in foodItems)
         {
-            foodEntity.CanCombine(item.Create(false), out foodEntity);
+            FoodEntity itemEntity = item.Create(false);
+            foodEntity.CanCombine(itemEntity, out foodEntity);
+            Destroy(itemEntity);
         }
 
         return foodEntity;

@@ -23,7 +23,7 @@ public class BurgerItem : FoodItem
         float lastHeight = bottomBun.transform.GetChild(0).GetComponent<MeshRenderer>().bounds.max.y;
         foreach(CombineData combineDataInBase in newFoodEntity.addedItems)
         {
-            GameObject ingredient = Instantiate(combineDataInBase.Output.Prefab);
+            GameObject ingredient = combineDataInBase.Output.Create(false).gameObject;
             ingredient.transform.SetParent(newFoodEntity.transform);
             ingredient.transform.position += new Vector3(0, lastHeight, 0);
             // Check if MeshComponent exist in main ingredient else find this component in Children

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Content
 {
@@ -43,7 +44,10 @@ public class Content
     public Sprite Pixel1x1;
     // Person Prefab
     public ClientController Person;
+    // Game Settings
+    public Settings UISettings;
     // VFX 
+    public AudioMixer AudioMixerMain, AudioMixerFX;
     public AudioClip UISelect;
     public List<AudioClip> PlayerSelect;
     public AudioClip Fry;
@@ -66,7 +70,9 @@ public class Content
         WarningIcon = Resources.Load<Animator>("Models/Prefabs/UI/WarningIcon");
 
         Person = Resources.Load<ClientController>("Models/Prefabs/Persons/person-walker");
-
+        /// VFX
+        AudioMixerMain = Resources.Load<AudioMixer>("VFX/AudioMixers/Main");
+        AudioMixerFX = Resources.Load<AudioMixer>("VFX/AudioMixers/FX");
         UISelect = Resources.Load<AudioClip>("VFX/select-ui");
 
         PlayerSelect = new List<AudioClip>() {
