@@ -48,10 +48,15 @@ public class Content
     public Settings UISettings;
     // VFX 
     public AudioMixer AudioMixerMain, AudioMixerFX;
-    public AudioClip UISelect;
-    public List<AudioClip> PlayerSelect;
-    public AudioClip Fry;
-    public AudioClip Slice;
+    public AudioClip VFX_UISelect;
+    public List<AudioClip> VFX_Slice;
+    public List<AudioClip> VFX_PlayerSelect;
+    public AudioClip VFX_Fry;
+    public AudioClip VFX_ReceptionBell;
+    public AudioClip VFX_TimesUp;
+    public AudioClip VFX_Cashsound;
+
+    public AudioClip MUSIC_LevelFinished;
     public void Load()
     {
         Burnt = Resources.Load<Material>("Models/Items/Food/Material/Burnt");
@@ -73,13 +78,26 @@ public class Content
         /// VFX
         AudioMixerMain = Resources.Load<AudioMixer>("VFX/AudioMixers/Main");
         AudioMixerFX = Resources.Load<AudioMixer>("VFX/AudioMixers/FX");
-        UISelect = Resources.Load<AudioClip>("VFX/select-ui");
 
-        PlayerSelect = new List<AudioClip>() {
+        VFX_UISelect = Resources.Load<AudioClip>("VFX/select-ui");
+        VFX_Fry = Resources.Load<AudioClip>("VFX/fry");
+        VFX_ReceptionBell = Resources.Load<AudioClip>("VFX/reception-bell");
+        VFX_Cashsound = Resources.Load<AudioClip>("VFX/cash-sound");
+
+        VFX_Slice = new List<AudioClip>()
+        {
+            Resources.Load<AudioClip>("VFX/slice-1"),
+            Resources.Load<AudioClip>("VFX/slice-2"),
+            Resources.Load<AudioClip>("VFX/slice-3")
+        };
+
+        VFX_PlayerSelect = new List<AudioClip>() {
             Resources.Load<AudioClip>("VFX/item-select-1"),
             Resources.Load<AudioClip>("VFX/item-select-2"),
             Resources.Load<AudioClip>("VFX/item-select-3"),
             Resources.Load<AudioClip>("VFX/item-select-4")
         };
+
+        MUSIC_LevelFinished = Resources.Load<AudioClip>("Music/ragtime-logo-standard-version");
     }
 }

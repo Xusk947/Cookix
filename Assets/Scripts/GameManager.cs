@@ -9,7 +9,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(BlockEventsHandler))]
 [RequireComponent(typeof(ScreenshotManager))]
 [RequireComponent(typeof(FoodTaskManager))]
-[InitializeOnLoad]
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }

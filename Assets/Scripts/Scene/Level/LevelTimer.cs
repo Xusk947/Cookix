@@ -29,6 +29,10 @@ public class LevelTimer : LevelController
            {
                 InGameUI.Instance.ChangeWaitTime(_waitTime);
            }
+           if (_waitTime == 60)
+            {
+                Events.OnUnderMinute();
+            }
            if (_waitTime <= 0)
             {
                 if (_finishLevelCooldown == 3)

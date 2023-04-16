@@ -40,7 +40,7 @@ public class ButtonSelector : MonoBehaviour
         {
             _source = gameObject.AddComponent<AudioSource>();
             _source.playOnAwake = false;
-            _source.clip = Content.Instance.UISelect;
+            _source.clip = Content.Instance.VFX_UISelect;
         }
 
         _baseColor = _image.color - new Color(0, 0, 0, 0.35f);

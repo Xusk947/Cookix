@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEditor;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -36,6 +35,7 @@ public abstract class LevelController : MonoBehaviour
 
     protected virtual void FinishLevel()
     {
+        AudioSource.PlayClipAtPoint(AudioManager.Instance.LevelFinishClip, Camera.main.transform.position);
         InGameUI.Instance.ChangeWaitTimeText("Time's Up!");
     }
 

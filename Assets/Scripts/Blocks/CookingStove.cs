@@ -29,6 +29,10 @@ public class CookingStove : Table
     /// </summary>
     [SerializeField]
     private float _cookSpeed = .5f;
+
+    private AudioSource _audioSource;
+    private bool _playing = false;
+
     protected new void Start()
     {
         base.Start();
@@ -38,6 +42,9 @@ public class CookingStove : Table
         {
             SpawnKitchenItemEntity(ItemToSpawn);
         }
+        _audioSource = gameObject.AddComponent<AudioSource>();
+        _audioSource.loop = true;
+        _audioSource.playOnAwake = false;
         // Create a HUD instance
         SpawnHUD();
     }
@@ -50,11 +57,13 @@ public class CookingStove : Table
             warningHud.gameObject.SetActive(false);
             hud.SetActive(false);
             _particleSystem?.Stop();
+            StopVFX();
             return;
         };
 
         _particleSystem?.Play();
 
+        PlayVFX(kitchenItemEntity);
         if (kitchenItemEntity.ItemIsBurning())
         {
             UpdateBurntState(kitchenItemEntity);
@@ -130,5 +139,28 @@ public class CookingStove : Table
         warningHud.transform.SetParent(transform);
         warningHud.transform.localPosition = new Vector3(0, 1.2f, 0.02f);
         warningHud.gameObject.SetActive(false);
+    }
+
+    private void StopVFX()
+    {
+        _audioSource.Stop();
+        _playing = false;
+    }
+
+    private void PlayVFX(KitchenItemEntity kitchenItemEntity)
+    {
+        if (_playing) return;
+        AudioClip clip = Content.Instance.VFX_Fry;
+
+        switch(kitchenItemEntity.CookingType)
+        {
+            case CookingType.Frying:
+                clip = Content.Instance.VFX_Fry;
+                break;
+        }
+
+        _audioSource.clip = clip;
+        _audioSource.Play();
+        _playing = true;
     }
 }

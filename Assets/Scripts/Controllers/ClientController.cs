@@ -41,6 +41,8 @@ public class ClientController : Controller
     private Vector3 _target = Vector3.zero;
 
     private ParticleSystem _angryParticles;
+
+    private AudioSource _audioSource;
     public Vector3 Target
     {
         get { return _target; }
@@ -70,6 +72,11 @@ public class ClientController : Controller
         _angryParticles = transform.GetComponentInChildren<ParticleSystem>();
 
         _thinkTime += Random.Range(0, 2.5f);
+
+        _audioSource = gameObject.AddComponent<AudioSource>();
+        _audioSource.playOnAwake = false;
+        _audioSource.loop = false;
+        _audioSource.clip = Content.Instance.VFX_ReceptionBell;
 
         CLIENTS.Add(this);
     }
@@ -129,6 +136,8 @@ public class ClientController : Controller
 
         WaitTime *= _targetFoodReciever.Task.difficult * GameManager.Instance.rules.ClientWaitTimeMultiplayer;
         WaitTimer = WaitTime;
+
+        _audioSource.Play();
 
         _state = State.WaitAnOrder;
     }

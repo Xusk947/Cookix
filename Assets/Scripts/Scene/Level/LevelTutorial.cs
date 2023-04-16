@@ -325,7 +325,6 @@ public class LevelTutorial : LevelController
         _timer = 1f;
         _textAngryClient.gameObject.SetActive(true);
         GameManager.Instance.rules.ClientWaitTimeMultiplayer = 0.07f;
-
         if (_foodReciever.isEmpty)
         {
             _currentStep = Step.AngryClient;

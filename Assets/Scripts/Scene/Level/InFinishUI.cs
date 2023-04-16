@@ -44,6 +44,7 @@ public class InFinishUI : MonoBehaviour
             button.gameObject.SetActive(false);
             _buttons.Add(button);
         }
+        AudioSource.PlayClipAtPoint(Content.Instance.MUSIC_LevelFinished, Camera.main.transform.position);
     }
 
     private void Update()
@@ -66,6 +67,7 @@ public class InFinishUI : MonoBehaviour
 
     private void BeginAnimations()
     {
+
         bool finished = true;
         if (_scoreGroup.sizeDelta.x < _defaultWidth - 1)
         {
@@ -104,6 +106,7 @@ public class InFinishUI : MonoBehaviour
         }
         _textScore.text = LevelData.Instance.Score.ToString();
         _state++;
+        AudioSource.PlayClipAtPoint(Content.Instance.VFX_Cashsound, Camera.main.transform.position);
     }
 
     public void OnNextButton()

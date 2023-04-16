@@ -52,7 +52,7 @@ public abstract class ChefController : Controller
             _currentItem = value;
             bool hasItem = _currentItem != null;
             _animator.SetBool("HasAnItem", hasItem);
-            _audioSource.clip = Content.Instance.PlayerSelect[UnityEngine.Random.Range(0, Content.Instance.PlayerSelect.Count)];
+            _audioSource.clip = Content.Instance.VFX_PlayerSelect[UnityEngine.Random.Range(0, Content.Instance.VFX_PlayerSelect.Count)];
             _audioSource.Play();
             if (hasItem)
             {
@@ -88,6 +88,7 @@ public abstract class ChefController : Controller
     {
         base.Start();
         _audioSource = gameObject.AddComponent<AudioSource>();
+        _audioSource.outputAudioMixerGroup = Content.Instance.AudioMixerFX.outputAudioMixerGroup;
         _audioSource.playOnAwake = false;
         // Create a ray for cheking blocks forward the Player
         _ray = new Ray();
@@ -180,5 +181,11 @@ public abstract class ChefController : Controller
         {
             Events.OnKitchenBlockSecondInteract(new BlockArgs(this, _selectedBlock, (e as BoolEventArgs).Condition));
         }
+    }
+
+    public void PlaySliceSound()
+    {
+        _audioSource.clip = Content.Instance.VFX_Slice[UnityEngine.Random.Range(0, Content.Instance.VFX_Slice.Count)];
+        _audioSource.Play();
     }
 }

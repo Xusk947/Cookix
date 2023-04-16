@@ -21,6 +21,13 @@ public class KitchenItemEntity : ItemEntity
     /// </summary>
     private List<FoodEntity> _itemsInside = new List<FoodEntity>();
     
+    private CookingType _cookingType;
+
+    public CookingType CookingType
+    {
+        get { return _cookingType; }
+    }
+
     /// <summary>
     /// Can uese this Item for cooking
     /// </summary>
@@ -141,10 +148,13 @@ public class KitchenItemEntity : ItemEntity
         switch (kitchenItem.useFor)
         {
             case CookingType.Boiling:
+                _cookingType = CookingType.Boiling;
                 return item.canBeBoiled;
             case CookingType.Frying:
+                _cookingType = CookingType.Frying;
                 return item.canBeFried;
             case CookingType.Mixing:
+                _cookingType = CookingType.Mixing;
                 return false;
             default:
                 return false;

@@ -24,7 +24,7 @@ public class ConditionalFieldAttribute : PropertyAttribute
         this.showIfEqual = showIfEqual;
     }
 }
-
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(ConditionalFieldAttribute))]
 public class ConditionalFieldDrawer : PropertyDrawer
 {
@@ -57,3 +57,5 @@ public class ConditionalFieldDrawer : PropertyDrawer
         }
     }
 }
+
+#endif

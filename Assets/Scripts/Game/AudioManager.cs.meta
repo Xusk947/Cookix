@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: b2ca0c8078e821d479f25342ab851b49
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - UnderMinuteClip: {fileID: 8300000, guid: 32a989dbb3e57ac49b1b01fa053b2893, type: 3}
+  - LevelFinishClip: {fileID: 8300000, guid: d762131732ca95a4fb1190713e9282af, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

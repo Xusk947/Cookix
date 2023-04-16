@@ -30,6 +30,8 @@ public class Events : MonoBehaviour
     /// </summary>
     public static event EventHandler<ClientArgs> ClientOrderFail;
 
+    public static event EventHandler UnderMinute;
+
     public static void OnKitchenBlockSelected(BlockArgs args)
     {
         KitchenBlockSelected?.Invoke(null, args);
@@ -58,5 +60,10 @@ public class Events : MonoBehaviour
     public static void OnClientOrderFail(ClientArgs args)
     {
         ClientOrderFail?.Invoke(null, args);
+    }
+
+    public static void OnUnderMinute()
+    {
+        UnderMinute?.Invoke(null, null);
     }
 }
